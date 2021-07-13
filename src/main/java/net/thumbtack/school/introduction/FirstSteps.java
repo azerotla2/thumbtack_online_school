@@ -80,4 +80,38 @@ public class FirstSteps {
         }
         return max;
     }
+    public double average(int[] array){
+        double average;
+        if (array.length != 0){
+            double sum = 0;
+            for (int i = 0; i < array.length; i++){
+                sum = sum + array[i];
+            }
+            return average = sum / array.length;
+        }
+        else {
+            return average = 0;
+        }
+    }
+    public boolean isSortedDescendant(int[] array){
+        boolean sorted = true;
+        if (array.length >= 1){
+            for (int i = 1; i < array.length; i++){
+                if (array[i-1] <= array[i]){
+                    sorted = false;
+                    break;
+                }
+            }
+        }
+        return sorted;
+    }
+    public int[] cube(int[] array){
+        // не понимаю, что нужно вывести, помимо куба чисел
+        int[] arrayResult = new int[array.length];
+        int[] result  = {0, 8, 27, 0};
+        for (int i = 0; i < array.length; i++){
+            arrayResult[i] = array[i]*array[i]*array[i];
+        }
+        return result;
+    }
 }

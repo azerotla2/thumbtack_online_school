@@ -116,43 +116,43 @@ public class TestFirstSteps {
         assertEquals(Integer.MIN_VALUE, firstSteps.max(array3));
     }
 
-//    @Test
-//    public void testAverageArray() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[] array1 = {1, 2, 3, 4};
-//        assertEquals(2.5, firstSteps.average(array1), DOUBLE_EPS);
-//        int[] array2 = {};
-//        assertEquals(0, firstSteps.average(array2), DOUBLE_EPS);
-//    }
-//
-//    @Test
-//    public void testSortedDescendantArray() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[] array1 = {3, 2, 1};
-//        assertTrue(firstSteps.isSortedDescendant(array1));
-//        int[] array2 = {3, 2, 2};
-//        assertFalse(firstSteps.isSortedDescendant(array2));
-//        int[] array3 = {3, 2, 1, 4};
-//        assertFalse(firstSteps.isSortedDescendant(array3));
-//        int[] array4 = {1};
-//        assertTrue(firstSteps.isSortedDescendant(array4));
-//        int[] array5 = {};
-//        assertTrue(firstSteps.isSortedDescendant(array5));
-//    }
-//
-//    @Test
-//    public void testCubeArray() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[] array1 = {1, 2, 3, 0};
-//        firstSteps.cube(array1);
-//        int[] arrayResult1 = {1, 8, 27, 0};
-//        assertArrayEquals(arrayResult1, array1);
-//        int[] array2 = {100, 200, 3, 10};
-//        firstSteps.cube(array2);
-//        int[] arrayResult2 = {1000000, 8000000, 27, 1000};
-//        assertArrayEquals(arrayResult2, array2);
-//    }
-//
+    @Test
+    public void testAverageArray() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[] array1 = {1, 2, 3, 4};
+        assertEquals(2.5, firstSteps.average(array1), DOUBLE_EPS);
+        int[] array2 = {};
+        assertEquals(0, firstSteps.average(array2), DOUBLE_EPS);
+    }
+
+    @Test
+    public void testSortedDescendantArray() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[] array1 = {3, 2, 1};
+        assertTrue(firstSteps.isSortedDescendant(array1));
+        int[] array2 = {3, 2, 2};
+        assertFalse(firstSteps.isSortedDescendant(array2));
+        int[] array3 = {3, 2, 1, 4};
+        assertFalse(firstSteps.isSortedDescendant(array3));
+        int[] array4 = {1};
+        assertTrue(firstSteps.isSortedDescendant(array4));
+        int[] array5 = {};
+        assertTrue(firstSteps.isSortedDescendant(array5));
+    }
+
+    @Test
+    public void testCubeArray() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[] array1 = {1, 2, 3, 0};
+        firstSteps.cube(array1);
+        int[] arrayResult1 = {1, 8, 27, 0};
+        assertArrayEquals(arrayResult1, array1);
+        int[] array2 = {100, 200, 3, 10};
+        firstSteps.cube(array2);
+        int[] arrayResult2 = {1000000, 8000000, 27, 1000};
+        assertArrayEquals(arrayResult2, array2);
+    }
+
 //    @Test
 //    public void testFindValueArray() {
 //        FirstSteps firstSteps = new FirstSteps();
