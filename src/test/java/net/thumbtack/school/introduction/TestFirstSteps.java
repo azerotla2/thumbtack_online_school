@@ -153,96 +153,96 @@ public class TestFirstSteps {
         assertArrayEquals(arrayResult2, array2);
     }
 
-//    @Test
-//    public void testFindValueArray() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[] array = {1, 2, 3, 0};
-//        assertTrue(firstSteps.find(array, 2));
-//        assertTrue(firstSteps.find(array, 0));
-//        assertFalse(firstSteps.find(array, 10));
-//    }
-//
-//    @Test
-//    public void testReverseArray() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[] array1 = {1, 2, 3, 0};
-//        int[] arrayResult1 = {0, 3, 2, 1};
-//        firstSteps.reverse(array1);
-//        assertArrayEquals(arrayResult1, array1);
-//        int[] array2 = {1, 2, 6, 3, 0};
-//        int[] arrayResult2 = {0, 3, 6, 2, 1};
-//        firstSteps.reverse(array2);
-//        assertArrayEquals(arrayResult2, array2);
-//        int[] array3 = {1};
-//        int[] arrayResult3 = {1};
-//        firstSteps.reverse(array3);
-//        assertArrayEquals(arrayResult3, array3);
-//        int[] array4 = {};
-//        int[] arrayResult4 = {};
-//        firstSteps.reverse(array4);
-//        assertArrayEquals(arrayResult4, array4);
-//    }
-//
-//    @Test
-//    public void testIsPalindromeArray() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[] array1 = {1, 2, 2, 1};
-//        assertTrue(firstSteps.isPalindrome(array1));
-//        int[] array2 = {1, 2, 6, 2, 1};
-//        assertTrue(firstSteps.isPalindrome(array2));
-//        int[] array3 = {1, 2, 6, 3, 1};
-//        assertFalse(firstSteps.isPalindrome(array3));
-//        int[] array4 = {1};
-//        assertTrue(firstSteps.isPalindrome(array4));
-//        int[] array5 = {};
-//        assertTrue(firstSteps.isPalindrome(array5));
-//    }
-//
-//    @Test
-//    public void testSumMatrix() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[][] matrix = {{1, 2, 3}, {3, 4, 5}, {6, 7, 8}};
-//        assertEquals(39, firstSteps.sum(matrix));
-//    }
-//
-//    @Test
-//    public void testMaxMatrix() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[][] matrix1 = {{1, 2, 3}, {3, 4, 5}, {6, 7, 8}};
-//        assertEquals(8, firstSteps.max(matrix1));
-//        int[][] matrix2 = {{100, 200, 300}, {3, 4, 5}, {6, 7, 8}};
-//        assertEquals(300, firstSteps.max(matrix2));
-//        int[][] matrix3 = {{-1, -2, -3}, {-3, -4, -5}, {-6, -7, -8}};
-//        assertEquals(-1, firstSteps.max(matrix3));
-//        int[][] matrix4 = {{}};
-//        assertEquals(Integer.MIN_VALUE, firstSteps.max(matrix4));
-//    }
-//
-//    @Test
-//    public void testDiagonalMaxMatrix() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[][] matrix1 = {{1, 2, 3}, {3, 4, 5}, {6, 7, 8}};
-//        assertEquals(8, firstSteps.diagonalMax(matrix1));
-//        int[][] matrix2 = {{100, 2, 3}, {3, 4, 5}, {6, 7, 800}};
-//        assertEquals(800, firstSteps.diagonalMax(matrix2));
-//        int[][] matrix3 = {{}};
-//        assertEquals(Integer.MIN_VALUE, firstSteps.diagonalMax(matrix3));
-//        int[][] matrix4 = {{-1, -2, 3}, {3, -4, 5}, {6, -7, -8}};
-//        assertEquals(-1, firstSteps.diagonalMax(matrix4));
-//    }
-//
-//    @Test
-//    public void testSortedDescendantMatrixRows() {
-//        FirstSteps firstSteps = new FirstSteps();
-//        int[][] matrix1 = {{3, 2, 1}, {5, 4, 3}, {8, 7, 6}};
-//        assertTrue(firstSteps.isSortedDescendant(matrix1));
-//        int[][] matrix2 = {{3, 2, 2}, {5, 4, 3}, {8, 7, 6}};
-//        assertFalse(firstSteps.isSortedDescendant(matrix2));
-//        int[][] matrix3 = {{3, 2, 1}};
-//        assertTrue(firstSteps.isSortedDescendant(matrix3));
-//        int[][] matrix4 = {{}};
-//        assertTrue(firstSteps.isSortedDescendant(matrix4));
-//        int[][] matrix5 = {{5, 4, 3, 2, 1}, {12, 5, 4, 3}, {34, 12, 10, 9, 8, 7, 6}};
-//        assertTrue(firstSteps.isSortedDescendant(matrix5));
-//    }
+    @Test
+    public void testFindValueArray() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[] array = {1, 2, 3, 0};
+        assertTrue(firstSteps.find(array, 2));
+        assertTrue(firstSteps.find(array, 0));
+        assertFalse(firstSteps.find(array, 10));
+    }
+
+    @Test
+    public void testReverseArray() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[] array1 = {1, 2, 3, 0};
+        int[] arrayResult1 = {0, 3, 2, 1};
+        firstSteps.reverse(array1);
+        assertArrayEquals(arrayResult1, array1);
+        int[] array2 = {1, 2, 6, 3, 0};
+        int[] arrayResult2 = {0, 3, 6, 2, 1};
+        firstSteps.reverse(array2);
+        assertArrayEquals(arrayResult2, array2);
+        int[] array3 = {1};
+        int[] arrayResult3 = {1};
+        firstSteps.reverse(array3);
+        assertArrayEquals(arrayResult3, array3);
+        int[] array4 = {};
+        int[] arrayResult4 = {};
+        firstSteps.reverse(array4);
+        assertArrayEquals(arrayResult4, array4);
+    }
+
+    @Test
+    public void testIsPalindromeArray() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[] array1 = {1, 2, 2, 1};
+        assertTrue(firstSteps.isPalindrome(array1));
+        int[] array2 = {1, 2, 6, 2, 1};
+        assertTrue(firstSteps.isPalindrome(array2));
+        int[] array3 = {1, 2, 6, 3, 1};
+        assertFalse(firstSteps.isPalindrome(array3));
+        int[] array4 = {1};
+        assertTrue(firstSteps.isPalindrome(array4));
+        int[] array5 = {};
+        assertTrue(firstSteps.isPalindrome(array5));
+    }
+
+    @Test
+    public void testSumMatrix() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[][] matrix = {{1, 2, 3}, {3, 4, 5}, {6, 7, 8}};
+        assertEquals(39, firstSteps.sum(matrix));
+    }
+
+    @Test
+    public void testMaxMatrix() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[][] matrix1 = {{1, 2, 3}, {3, 4, 5}, {6, 7, 8}};
+        assertEquals(8, firstSteps.max(matrix1));
+        int[][] matrix2 = {{100, 200, 300}, {3, 4, 5}, {6, 7, 8}};
+        assertEquals(300, firstSteps.max(matrix2));
+        int[][] matrix3 = {{-1, -2, -3}, {-3, -4, -5}, {-6, -7, -8}};
+        assertEquals(-1, firstSteps.max(matrix3));
+        int[][] matrix4 = {{}};
+        assertEquals(Integer.MIN_VALUE, firstSteps.max(matrix4));
+    }
+
+    @Test
+    public void testDiagonalMaxMatrix() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[][] matrix1 = {{1, 2, 3}, {3, 4, 5}, {6, 7, 8}};
+        assertEquals(8, firstSteps.diagonalMax(matrix1));
+        int[][] matrix2 = {{100, 2, 3}, {3, 4, 5}, {6, 7, 800}};
+        assertEquals(800, firstSteps.diagonalMax(matrix2));
+        int[][] matrix3 = {{}};
+        assertEquals(Integer.MIN_VALUE, firstSteps.diagonalMax(matrix3));
+        int[][] matrix4 = {{-1, -2, 3}, {3, -4, 5}, {6, -7, -8}};
+        assertEquals(-1, firstSteps.diagonalMax(matrix4));
+    }
+
+    @Test
+    public void testSortedDescendantMatrixRows() {
+        FirstSteps firstSteps = new FirstSteps();
+        int[][] matrix1 = {{3, 2, 1}, {5, 4, 3}, {8, 7, 6}};
+        assertTrue(firstSteps.isSortedDescendant(matrix1));
+        int[][] matrix2 = {{3, 2, 2}, {5, 4, 3}, {8, 7, 6}};
+        assertFalse(firstSteps.isSortedDescendant(matrix2));
+        int[][] matrix3 = {{3, 2, 1}};
+        assertTrue(firstSteps.isSortedDescendant(matrix3));
+        int[][] matrix4 = {{}};
+        assertTrue(firstSteps.isSortedDescendant(matrix4));
+        int[][] matrix5 = {{5, 4, 3, 2, 1}, {12, 5, 4, 3}, {34, 12, 10, 9, 8, 7, 6}};
+        assertTrue(firstSteps.isSortedDescendant(matrix5));
+    }
 }
