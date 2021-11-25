@@ -1,11 +1,10 @@
 package net.thumbtack.school.figures.v3;
 
-import net.thumbtack.school.figures.v3.Point;
 import net.thumbtack.school.fillStyle.v3.FillStyle;
 import net.thumbtack.school.misc.v3.Apartment;
 import net.thumbtack.school.misc.v3.Car;
 import net.thumbtack.school.misc.v3.Fruit;
-import net.thumbtack.school.v3.FillStyleException;
+import net.thumbtack.school.fillStyle.v3.FillStyleException;
 import org.junit.jupiter.api.Test;
 
 import static net.thumbtack.school.fillStyle.v3.FillStyle.*;

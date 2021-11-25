@@ -1,4 +1,4 @@
-package net.thumbtack.school.v3;
+package net.thumbtack.school.fillStyle.v3;
 
 public enum FillStyleErrorCode {
     WRONG_FILL_STYLE_STRING("Несуществующее название стиля заполнения"),

@@ -4,8 +4,8 @@ import net.thumbtack.school.figures.v3.Point;
 import net.thumbtack.school.fillStyle.v3.FillStyle;
 import net.thumbtack.school.iface.v3.Filled;
 import net.thumbtack.school.iface.v3.Movable;
-import net.thumbtack.school.v3.FillStyleErrorCode;
-import net.thumbtack.school.v3.FillStyleException;
+import net.thumbtack.school.fillStyle.v3.FillStyleErrorCode;
+import net.thumbtack.school.fillStyle.v3.FillStyleException;
 
 import java.util.Objects;
 

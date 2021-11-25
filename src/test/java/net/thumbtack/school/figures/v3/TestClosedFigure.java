@@ -1,7 +1,7 @@
 package net.thumbtack.school.figures.v3;
 
 import net.thumbtack.school.fillStyle.v3.FillStyle;
-import net.thumbtack.school.v3.FillStyleException;
+import net.thumbtack.school.fillStyle.v3.FillStyleException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

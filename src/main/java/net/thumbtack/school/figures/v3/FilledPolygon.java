@@ -2,28 +2,21 @@ package net.thumbtack.school.figures.v3;
 
 import net.thumbtack.school.fillStyle.v3.FillStyle;
 import net.thumbtack.school.iface.v3.Filled;
-import net.thumbtack.school.v3.FillStyleErrorCode;
-import net.thumbtack.school.v3.FillStyleException;
+import net.thumbtack.school.fillStyle.v3.FillStyleErrorCode;
+import net.thumbtack.school.fillStyle.v3.FillStyleException;
 
 import java.util.Objects;
 
 public class FilledPolygon extends Polygon implements Filled {
 
-    private FillStyle color;
-
     public FilledPolygon(Point[] points, FillStyle style) throws FillStyleException {
         super(points);
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
+        setFillStyle(style);
     }
 
     public FilledPolygon(Point[] points, String style) throws FillStyleException {
         super(points);
-        color = FillStyle.fillStyleFromString(style);
+        setFillStyle(style);
     }
 
     public Point[] getPoints(){
@@ -63,19 +56,5 @@ public class FilledPolygon extends Polygon implements Filled {
     public FillStyle getFillStyle(){
         return color;
     }
-
-    public void setFillStyle(FillStyle style) throws FillStyleException {
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
-    }
-
-    public void setFillStyle(String style) throws FillStyleException {
-        color = FillStyle.fillStyleFromString(style);
-    }
-
 
 }

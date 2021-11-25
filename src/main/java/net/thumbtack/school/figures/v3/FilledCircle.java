@@ -2,78 +2,55 @@ package net.thumbtack.school.figures.v3;
 
 import net.thumbtack.school.fillStyle.v3.FillStyle;
 import net.thumbtack.school.iface.v3.Filled;
-import net.thumbtack.school.v3.FillStyleErrorCode;
-import net.thumbtack.school.v3.FillStyleException;
+import net.thumbtack.school.fillStyle.v3.FillStyleException;
 
 import java.util.Objects;
 
 public class FilledCircle extends Circle implements Filled {
 
-    private FillStyle color;
-
     public FilledCircle(Point center, int radius, FillStyle style) throws FillStyleException{
         super(center, radius);
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
+        setFillStyle(style);
     }
 
     public FilledCircle(Point center, int radius, String style) throws FillStyleException {
         super(center, radius);
-        color = FillStyle.fillStyleFromString(style);
+        setFillStyle(style);
     }
 
     public FilledCircle(int xCenter, int yCenter, int radius, FillStyle style) throws FillStyleException {
         super(xCenter, yCenter, radius);
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
+        setFillStyle(style);
     }
 
     public FilledCircle(int xCenter, int yCenter, int radius, String style) throws FillStyleException {
         super(xCenter, yCenter, radius);
-        color = FillStyle.fillStyleFromString(style);
+        setFillStyle(style);
     }
 
     public FilledCircle(int radius, FillStyle style) throws FillStyleException {
         super(radius);
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
+        setFillStyle(style);
     }
 
     public FilledCircle(int radius, String style) throws FillStyleException {
         super(radius);
-        color = FillStyle.fillStyleFromString(style);
+        setFillStyle(style);
     }
 
     public FilledCircle(FillStyle style) throws FillStyleException{
         super(1);
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
+        setFillStyle(style);
     }
 
     public FilledCircle(String style) throws FillStyleException {
         super(1);
-        color = FillStyle.fillStyleFromString(style);
+        setFillStyle(style);
     }
 
-    public FilledCircle(){
+    public FilledCircle() throws FillStyleException {
         super(1);
-        color = FillStyle.SOLID_RED;
+        setFillStyle(FillStyle.SOLID_RED);
     }
 
     public void moveTo(int x, int y){
@@ -108,23 +85,6 @@ public class FilledCircle extends Circle implements Filled {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), color);
-    }
-
-    public FillStyle getFillStyle(){
-        return color;
-    }
-
-    public void setFillStyle(FillStyle style) throws FillStyleException {
-        if (style == null){
-            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        else {
-            color = style;
-        }
-    }
-
-    public void setFillStyle(String style) throws FillStyleException {
-        color = FillStyle.fillStyleFromString(style);
     }
 
 }

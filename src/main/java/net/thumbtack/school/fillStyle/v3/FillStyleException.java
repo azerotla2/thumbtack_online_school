@@ -1,4 +1,4 @@
-package net.thumbtack.school.v3;
+package net.thumbtack.school.fillStyle.v3;
 
 public class FillStyleException extends Exception{
 

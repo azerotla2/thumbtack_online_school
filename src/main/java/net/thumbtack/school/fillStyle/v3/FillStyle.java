@@ -1,8 +1,6 @@
 package net.thumbtack.school.fillStyle.v3;
 
 import net.thumbtack.school.figures.v3.FilledCircle;
-import net.thumbtack.school.v3.FillStyleErrorCode;
-import net.thumbtack.school.v3.FillStyleException;
 
 public enum FillStyle {
     SOLID_RED("SOLID_RED"),
