@@ -57,4 +57,5 @@ public class Trainee {
     public int hashCode() {
         return Objects.hash(firstName, lastName, rating);
     }
+    //2
 }
