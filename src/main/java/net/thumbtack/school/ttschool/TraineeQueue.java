@@ -17,6 +17,7 @@ public class TraineeQueue {
     }
 
     public Trainee removeTrainee() throws TrainingException {
+        // REVU не надо isEmpty, poll сама скажет
         if(queue.isEmpty())
             throw new TrainingException(TrainingErrorCode.EMPTY_TRAINEE_QUEUE);
         else

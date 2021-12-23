@@ -11,6 +11,8 @@ public class StringOperations {
     }
 
     public static String getFirstAndLastLetterString(String string){
+        // REVU можно сразу return, то есть в одну строчку
+        // здесь и в следующих методах
         String firstChar = String.valueOf(string.charAt(0));
         String lastChar = String.valueOf(string.charAt(string.length()-1));
         return firstChar.concat(lastChar);
@@ -79,6 +81,7 @@ public class StringOperations {
     public static String getCommonPrefix(String string1, String string2){
         String sEmpty = "";
         for (int i = 0; i < Math.min(string1.length(), string2.length()); i++) {
+            // REVU зачем проверять подстроки, если достаточно сравнивать символы - charAt(i)
             if(string1.regionMatches(0, string2, 0, i+1)){
                 sEmpty = string1.substring(0, i+1);
             }
@@ -96,17 +99,22 @@ public class StringOperations {
     }
 
     public static boolean isPalindrome(String string){
+        // REVU сделайте без reverse
         return reverse(string).equals(string);
     }
 
     public static boolean isPalindromeIgnoreCase(String string){
+        // REVU вызовите предыдущий метод
+
         return reverse(string).equalsIgnoreCase(string);
     }
 
     public static String getLongestPalindromeIgnoreCase(String[] strings){
         String longPalindrome = "";
+        // REVU не нужна
         int y = 0;
         for (String string : strings) {
+            // REVU вызовите isPalindrome
             if(reverse(string).equalsIgnoreCase(string) && y < string.length()){
                     y = string.length();
                     longPalindrome = string;
@@ -133,6 +141,7 @@ public class StringOperations {
 
     public static boolean isPalindromeAfterRemovingSpacesIgnoreCase(String string){
         String s1 = string.replaceAll("\\s","");
+        // REVU вызовите isPalindrome
         return reverse(s1).equalsIgnoreCase(s1);
     }
 
@@ -141,6 +150,8 @@ public class StringOperations {
     }
 
     public static String makeCsvStringFromInts(int[] array){
+        // REVU лучше наоборот - этот код перенести в метод, возвращающий StringBuilder
+        // а тут его вызвать, и toString. Одним new StringBuilder будет меньше
         StringBuilder sb = new StringBuilder();
         for (int i : array) {
             sb.append(i + ",");
@@ -153,6 +164,7 @@ public class StringOperations {
     }
 
     public static String makeCsvStringFromDoubles(double[] array){
+        // REVU аналогично
         StringBuilder sb = new StringBuilder();
         for (double i : array) {
             String result = String.format("%.2f", i);

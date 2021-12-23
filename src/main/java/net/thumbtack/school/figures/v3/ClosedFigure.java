@@ -9,12 +9,15 @@ import java.util.Objects;
 
 public abstract class ClosedFigure extends Figure implements HasPerimeter {
 
+    // REVU почему любая ClosedFigure должнв иметь FillStyle ?
+    // только Filled фигурам он нужен, и здесь ему не место
     FillStyle color;
 
     public void setFillStyle(FillStyle style) throws FillStyleException {
         if (style == null){
             throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
         }
+        // REVU else не нужен
         else {
             color = style;
         }

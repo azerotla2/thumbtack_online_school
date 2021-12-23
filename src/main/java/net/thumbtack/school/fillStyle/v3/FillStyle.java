@@ -28,7 +28,8 @@ public enum FillStyle {
         if (fillStyleString == null) {
             throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
         }
-
+        // REVU valueOf и ловите IllegalArgumentException
+        // а поймав, выбросите FillStyleException
 //        try {
 //            FillStyle.valueOf(fillStyleString);
 //        } catch (FillStyleException e) {

@@ -6,8 +6,10 @@ public class Circle extends ClosedFigure {
 
     private int radius;
 
+    // REVU private
     public Point center;
 
+    // REVU В классе должен быть только один конструктор, явно присваивающий значения полям. Остальные должны вызывать другой конструктор
     public Circle(Point center, int radius){
         this.center = center;
         this.radius = radius;
@@ -38,6 +40,7 @@ public class Circle extends ClosedFigure {
     }
 
     public void moveRel(int plusX, int plusY){
+        // REVU не нужно, в классе Point есть moveRel
         Point point = new Point();
         center.moveRel(point.getX()+plusX, point.getY()+plusY );
     }

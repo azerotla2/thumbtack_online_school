@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class FilledCircle extends Circle implements Filled {
 
+    // REVU В классе должен быть только один конструктор, явно присваивающий значения полям. Остальные должны вызывать другой конструктор
     public FilledCircle(Point center, int radius, FillStyle style) throws FillStyleException{
         super(center, radius);
         setFillStyle(style);

@@ -8,6 +8,7 @@ public class Ellipse extends ClosedFigure {
 
     private Point center;
 
+    // REVU В классе должен быть только один конструктор, явно присваивающий значения полям. Остальные должны вызывать другой конструктор
     public Ellipse(Point center, int xAxis, int yAxis) {
         this.xAxis = xAxis;
         this.yAxis = yAxis;
@@ -17,6 +18,8 @@ public class Ellipse extends ClosedFigure {
     public Ellipse(int xCenter, int yCenter, int xAxis, int yAxis){
         this.xAxis = xAxis;
         this.yAxis = yAxis;
+        // REVU в классе Point есть конструктор Point(int x, int y)
+        // здесь и везде
         Point point = new Point();
         point.setX(xCenter);
         point.setY(yCenter);

@@ -6,6 +6,7 @@ import net.thumbtack.school.fillStyle.v3.FillStyleException;
 
 public class FilledEllipse extends Ellipse implements Filled {
 
+    // REVU В классе должен быть только один конструктор, явно присваивающий значения полям. Остальные должны вызывать другой конструктор
     public FilledEllipse(Point center, int xAxis, int yAxis, FillStyle style) throws FillStyleException {
         super(center, xAxis, yAxis);
         setFillStyle(style);
