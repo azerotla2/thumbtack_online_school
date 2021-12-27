@@ -9,31 +9,22 @@ public class Ellipse extends ClosedFigure {
     private Point center;
 
     public Ellipse(Point center, int xAxis, int yAxis) {
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
-        this.center = center;
+        setXAxis(xAxis);
+        setYAxis(yAxis);
+        setCenter(center);
     }
 
     public Ellipse(int xCenter, int yCenter, int xAxis, int yAxis){
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
-        Point point = new Point();
-        point.setX(xCenter);
-        point.setY(yCenter);
-        this.center = point;
+        setCenter(new Point(xCenter, yCenter));
+        setXAxis(xAxis);
+        setYAxis(yAxis);
     }
     public Ellipse(int xAxis, int yAxis){
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
-        Point point = new Point();
-        this.center = point;
+        this(new Point(), xAxis, yAxis);
     }
 
     public Ellipse(){
-        Point point = new Point();
-        this.center = point;
-        this.xAxis = 1;
-        this.yAxis = 1;
+        this(new Point(), 1, 1);
     }
 
     public void setCenter(Point center){
@@ -41,8 +32,7 @@ public class Ellipse extends ClosedFigure {
     }
 
     public void moveTo(int x, int y){
-        center.setX(x);
-        center.setY(y);
+        center.moveTo(x, y);
     }
 
     public void moveRel(int dx, int dy){
@@ -50,8 +40,9 @@ public class Ellipse extends ClosedFigure {
     }
 
     public void resize(int a){
-        this.xAxis = xAxis * a;
-        this.yAxis = yAxis * a;
+        setXAxis(getXAxis() * a);
+        setYAxis(getYAxis() * a);
+
     }
 
     public double getArea(){
@@ -63,10 +54,8 @@ public class Ellipse extends ClosedFigure {
     }
 
     public boolean isInside (int xPoint, int yPoint){
-        if (Math.pow(xPoint - center.getX(),2)/(xAxis/2*xAxis/2)+Math.pow(yPoint - center.getY(),2)/(yAxis/2*yAxis/2) <= 1){
-            return true;
-        }
-        return false;
+        return Math.pow(xPoint - center.getX(),2)/(xAxis/2*xAxis/2)+Math.pow(yPoint - center.getY(),2)/(yAxis/2*yAxis/2) <= 1;
+
     }
 
     @Override

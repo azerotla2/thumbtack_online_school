@@ -6,31 +6,26 @@ public class Circle extends ClosedFigure {
 
     private int radius;
 
-    public Point center;
+    private Point center;
 
     public Circle(Point center, int radius){
-        this.center = center;
-        this.radius = radius;
+        setCenter(center);
+        setRadius(radius);
     }
 
     public Circle (int xCenter, int yCenter, int radius){
-        this.radius = radius;
-        Point point = new Point();
-        point.setX(xCenter);
-        point.setY(yCenter);
-        this.center = point;
+        setRadius(radius);
+        setCenter(new Point(xCenter, yCenter));
     }
 
     public Circle (int radius){
-        this.radius = radius;
-        Point point = new Point();
-        this.center = point;
+        setRadius(radius);
+        setCenter(new Point());
     }
 
     public Circle (){
-        this.radius = 1;
-        Point point = new Point();
-        this.center = point;
+        setRadius(1);
+        setCenter(new Point());
     }
 
     public void moveTo(int xCenter, int yCenter){
@@ -38,8 +33,7 @@ public class Circle extends ClosedFigure {
     }
 
     public void moveRel(int plusX, int plusY){
-        Point point = new Point();
-        center.moveRel(point.getX()+plusX, point.getY()+plusY );
+        center.moveRel(plusX, plusY);
     }
 
     public void resize(int ratio){

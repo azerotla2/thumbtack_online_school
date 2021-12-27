@@ -1,5 +1,7 @@
 package net.thumbtack.school.base;
 
+import java.util.Locale;
+
 public class StringOperations {
 
     public static int getSummaryLength(String[] strings){
@@ -11,39 +13,27 @@ public class StringOperations {
     }
 
     public static String getFirstAndLastLetterString(String string){
-        String firstChar = String.valueOf(string.charAt(0));
-        String lastChar = String.valueOf(string.charAt(string.length()-1));
-        return firstChar.concat(lastChar);
+        return String.valueOf(string.charAt(0)).concat(String.valueOf(string.charAt(string.length()-1)));
     }
 
     public static boolean isSameCharAtPosition(String string1, String string2, int index){
-        String firstChar = String.valueOf(string1.charAt(index));
-        String secondChar = String.valueOf(string2.charAt(index));
-        return firstChar.equals(secondChar);
+        return String.valueOf(string1.charAt(index)).equals(String.valueOf(string2.charAt(index)));
     }
 
     public static boolean isSameFirstCharPosition(String string1, String string2, char character){
-        int s1 = string1.indexOf(character);
-        int s2 = string2.indexOf(character);
-        return s1 == s2;
+        return string1.indexOf(character) == string2.indexOf(character);
     }
 
     public static boolean isSameLastCharPosition(String string1, String string2, char character){
-        int s1 = string1.lastIndexOf(character);
-        int s2 = string2.lastIndexOf(character);
-        return s1 == s2;
+        return string1.lastIndexOf(character) == string2.lastIndexOf(character);
     }
 
     public static boolean isSameFirstStringPosition(String string1, String string2, String str){
-        int s1 = string1.indexOf(str);
-        int s2 = string2.indexOf(str);
-        return s1 == s2;
+        return string1.indexOf(str) == string2.indexOf(str);
     }
 
     public static boolean isSameLastStringPosition(String string1, String string2, String str){
-        int s1 = string1.lastIndexOf(str);
-        int s2 = string2.lastIndexOf(str);
-        return s1 == s2;
+        return string1.lastIndexOf(str) == string2.lastIndexOf(str);
     }
 
     public static boolean isEqual(String string1, String string2){
@@ -79,9 +69,8 @@ public class StringOperations {
     public static String getCommonPrefix(String string1, String string2){
         String sEmpty = "";
         for (int i = 0; i < Math.min(string1.length(), string2.length()); i++) {
-            if(string1.regionMatches(0, string2, 0, i+1)){
-                sEmpty = string1.substring(0, i+1);
-            }
+            if(string1.charAt(i) == string2.charAt(i))
+                sEmpty = sEmpty.concat(String.valueOf(string1.charAt(i)));
             else{
                 break;
             }
@@ -96,18 +85,22 @@ public class StringOperations {
     }
 
     public static boolean isPalindrome(String string){
-        return reverse(string).equals(string);
+        for(int i = 0; i < string.length(); i++){
+            if (!String.valueOf(string.charAt(i)).equals(String.valueOf(string.charAt(string.length()-1-i))))
+                return false;
+        }
+        return true;
     }
 
     public static boolean isPalindromeIgnoreCase(String string){
-        return reverse(string).equalsIgnoreCase(string);
+        return isPalindrome(string.toLowerCase(Locale.ROOT));
     }
 
     public static String getLongestPalindromeIgnoreCase(String[] strings){
         String longPalindrome = "";
         int y = 0;
         for (String string : strings) {
-            if(reverse(string).equalsIgnoreCase(string) && y < string.length()){
+            if(isPalindromeIgnoreCase(string) && y < string.length()){
                     y = string.length();
                     longPalindrome = string;
             }
@@ -120,20 +113,16 @@ public class StringOperations {
     }
 
     public static boolean isEqualAfterReplaceCharacters(String string1, char replaceInStr1, char replaceByInStr1, String string2, char replaceInStr2, char replaceByInStr2){
-        String s1 = string1.replace(replaceInStr1, replaceByInStr1);
-        String s2 = string2.replace(replaceInStr2, replaceByInStr2);
-        return s1.equals(s2);
+        return string1.replace(replaceInStr1, replaceByInStr1).equals(string2.replace(replaceInStr2, replaceByInStr2));
     }
 
     public static boolean isEqualAfterReplaceStrings(String string1, String replaceInStr1, String replaceByInStr1, String string2, String replaceInStr2, String replaceByInStr2){
-        String s1 = string1.replace(replaceInStr1, replaceByInStr1);
-        String s2 = string2.replace(replaceInStr2, replaceByInStr2);
-        return s1.equals(s2);
+        return string1.replace(replaceInStr1, replaceByInStr1).equals(string2.replace(replaceInStr2, replaceByInStr2));
     }
 
     public static boolean isPalindromeAfterRemovingSpacesIgnoreCase(String string){
         String s1 = string.replaceAll("\\s","");
-        return reverse(s1).equalsIgnoreCase(s1);
+        return isPalindromeIgnoreCase(s1);
     }
 
     public static boolean isEqualAfterTrimming(String string1, String string2){
@@ -141,6 +130,14 @@ public class StringOperations {
     }
 
     public static String makeCsvStringFromInts(int[] array){
+        return makeCsvStringBuilderFromInts(array).toString();
+    }
+
+    public static String makeCsvStringFromDoubles(double[] array){
+        return makeCsvStringBuilderFromDoubles(array).toString();
+    }
+
+    public static StringBuilder makeCsvStringBuilderFromInts(int[] array){
         StringBuilder sb = new StringBuilder();
         for (int i : array) {
             sb.append(i + ",");
@@ -149,10 +146,10 @@ public class StringOperations {
         if (sb.length() != 0) {
             sb.deleteCharAt(sb.length() - 1);
         }
-        return sb.toString();
+        return sb;
     }
 
-    public static String makeCsvStringFromDoubles(double[] array){
+    public static StringBuilder makeCsvStringBuilderFromDoubles(double[] array){
         StringBuilder sb = new StringBuilder();
         for (double i : array) {
             String result = String.format("%.2f", i);
@@ -162,16 +159,6 @@ public class StringOperations {
         if (sb.length() != 0) {
             sb.deleteCharAt(sb.length() - 1);
         }
-        return sb.toString();
-    }
-
-    public static StringBuilder makeCsvStringBuilderFromInts(int[] array){
-        StringBuilder sb = new StringBuilder(makeCsvStringFromInts(array));
-        return sb;
-    }
-
-    public static StringBuilder makeCsvStringBuilderFromDoubles(double[] array){
-        StringBuilder sb = new StringBuilder(makeCsvStringFromDoubles(array));
         return sb;
     }
 

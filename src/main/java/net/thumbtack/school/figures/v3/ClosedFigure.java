@@ -9,6 +9,10 @@ import java.util.Objects;
 
 public abstract class ClosedFigure extends Figure implements HasPerimeter {
 
+    // В задании сказано "Замкнутые фигуры имеют площадь и могут быть закрашены"
+    // Просто замкнутые фигуры не имплементируют, интерфейс Filled
+    // Почти все методы этого класса не имеют смысла, если убрать color
+    // Сделать новый абстрактный класс FilledFigure или я чего-то не понимаю...
     FillStyle color;
 
     public void setFillStyle(FillStyle style) throws FillStyleException {

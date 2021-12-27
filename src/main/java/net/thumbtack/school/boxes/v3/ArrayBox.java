@@ -1,6 +1,8 @@
 package net.thumbtack.school.boxes.v3;
 
 import net.thumbtack.school.figures.v3.ClosedFigure;
+import net.thumbtack.school.figures.v3.Ellipse;
+import net.thumbtack.school.figures.v3.Figure;
 
 import java.util.List;
 

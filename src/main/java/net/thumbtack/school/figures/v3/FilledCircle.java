@@ -8,6 +8,8 @@ import java.util.Objects;
 
 public class FilledCircle extends Circle implements Filled {
 
+
+
     public FilledCircle(Point center, int radius, FillStyle style) throws FillStyleException{
         super(center, radius);
         setFillStyle(style);
