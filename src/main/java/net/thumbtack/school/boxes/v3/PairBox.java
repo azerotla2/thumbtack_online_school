@@ -35,10 +35,12 @@ public class PairBox<T extends ClosedFigure, V extends ClosedFigure> implements 
         return firstBox.getPerimeter() + secondBox.getPerimeter();
     }
 
+    // REVU PairBox - generic, поэтому надо после него <что-то тут>
     public static boolean isPerimeterEqual(PairBox box1, PairBox box2){
         return Math.abs(box1.getPerimeter() - box2.getPerimeter()) < EPS;
     }
 
+    // REVU PairBox - generic, поэтому надо после него <что-то тут>
     public boolean isPerimeterEqual(PairBox box2){
         return Math.abs(getPerimeter() - box2.getPerimeter()) < EPS;
     }

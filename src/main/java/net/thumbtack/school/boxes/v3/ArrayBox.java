@@ -28,6 +28,7 @@ public class ArrayBox<T extends ClosedFigure> {
 
     public T getElement(int index) {return objArray[index];}
 
+    // REVU ArrayBox - generic, поэтому надо после него <что-то тут>
     public boolean isSameSize(ArrayBox box1){
         return Math.abs(objArray.length - box1.objArray.length) == 0;
     }

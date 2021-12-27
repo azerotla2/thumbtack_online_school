@@ -18,6 +18,11 @@ public class MatrixNonSimilarRows {
             matrixSet.add(row);
         }
 
+        // REVU Вы в сет заносите строки, из-за чего Вам приходится потом делать их сеты и сравнивать
+        // так заносите в сет сеты и сравнивать их сет будет сам
+        // Set<Set<Integer>>
+        // а еще лучше
+        // Map<Set<Integer, int[]> - строка как значение для своего собственного сета в качестве ключа
         for(int i = matrix.length; i > 0; i--){
             Set<Integer> rowHashSetFirst = new HashSet<>(Arrays.stream(matrix[i-1]).boxed().collect(Collectors.toList()));
             for(int a = 0; a < i-1; a++){

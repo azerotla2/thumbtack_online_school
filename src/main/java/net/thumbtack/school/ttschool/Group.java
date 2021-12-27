@@ -59,6 +59,7 @@ public class Group {
     }
 
     public Trainee getTraineeByFirstName(String firstName) throws TrainingException {
+        // REVU просто for(Trainee trainee : list)
         ListIterator<Trainee> listIterator = list.listIterator();
         while(listIterator.hasNext()){
             if(listIterator.next().getFirstName().equals(firstName)){
@@ -69,6 +70,7 @@ public class Group {
     }
 
     public Trainee  getTraineeByFullName(String fullName) throws TrainingException {
+        // REVU то же
         ListIterator<Trainee> listIterator = list.listIterator();
         while (listIterator.hasNext()){
             if(listIterator.next().getFullName().equals(fullName)){
@@ -103,6 +105,7 @@ public class Group {
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
         int point = Integer.MIN_VALUE;
         List<Trainee> list1 = new ArrayList<>();
+        // REVU просто for(Trainee trainee : list)
         ListIterator<Trainee> listIterator = list.listIterator();
         while(listIterator.hasNext()){
             int rating = listIterator.next().getRating();

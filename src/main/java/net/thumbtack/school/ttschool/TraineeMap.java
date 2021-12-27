@@ -11,6 +11,8 @@ public class TraineeMap {
     }
 
     public void addTraineeInfo(Trainee trainee, String institute) throws TrainingException {
+        // REVU не надо никакого цикла
+        // putIfAbsent и проверить результат
         for(Trainee key : map.keySet()){
             if(trainee.equals(key))
                 throw new TrainingException(TrainingErrorCode.DUPLICATE_TRAINEE);
@@ -23,6 +25,7 @@ public class TraineeMap {
     }
 
     public void replaceTraineeInfo(Trainee trainee, String institute) throws TrainingException {
+        // REVU не надо containsKey, replace сама скажет
         if(!map.containsKey(trainee))
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
         else
@@ -30,6 +33,7 @@ public class TraineeMap {
     }
 
     public String getInstituteByTrainee(Trainee trainee) throws TrainingException {
+        // REVU не надо никакого цикла, просто get и проверить результат
         for(Map.Entry<Trainee, String> entry : map.entrySet()){
             if(entry.getKey().equals(trainee)){
                 return entry.getValue();
@@ -39,6 +43,7 @@ public class TraineeMap {
     }
 
     public void removeTraineeInfo(Trainee trainee) throws TrainingException {
+        // REVU не надо containsKey, remove сама скажет
         if(!map.containsKey(trainee))
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
         else
@@ -55,6 +60,7 @@ public class TraineeMap {
     }
 
     public boolean isAnyFromInstitute(String institute){
+        // REVU valueOf
         Set<String> institutes = new HashSet<>(map.values());
         return institutes.contains(institute);
     }
