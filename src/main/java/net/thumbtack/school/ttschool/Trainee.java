@@ -18,8 +18,6 @@ public class Trainee implements Serializable {
     public void setFirstName(String firstName) throws TrainingException {
         if(firstName == null || firstName.trim().length() == 0)
             throw new TrainingException(TrainingErrorCode.TRAINEE_WRONG_FIRSTNAME);
-        // REVU else не нужен. Здесь и везде, если if заканчивается throw, return, break и т.д.
-        else
             this.firstName = firstName;
     }
 

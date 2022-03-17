@@ -34,18 +34,16 @@ public class FileService {
     }
 
     public static byte[]  writeAndReadByteArrayUsingByteStream( byte[] array) throws IOException {
-        // REVU тут 2 последовательных действия
-        // поэтому должно быть 2 последовательных try, а не вложенные
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
                 baos.write(array);
-            try(ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray())) {
-                byte[] evenIndex = new byte[array.length % 2 + array.length/2];
-                for (int index = 0; index < evenIndex.length; index++){
-                    evenIndex[index] = (byte) bais.read();
-                    bais.skip(1);
-                }
-                return evenIndex;
+        }
+        try(ByteArrayInputStream bais = new ByteArrayInputStream(array)) {
+            byte[] evenIndex = new byte[array.length % 2 + array.length/2];
+            for (int index = 0; index < evenIndex.length; index++){
+                evenIndex[index] = (byte) bais.read();
+                bais.skip(1);
             }
+            return evenIndex;
         }
     }
 
@@ -105,8 +103,7 @@ public class FileService {
     }
 
     public static void  writeEllipseArrayToBinaryFile(File file, Ellipse[] ellipses ) throws IOException {
-        // REVU RandomAccessFile тут не нужен, запись последовательная. Хватит и  DataOutputStream
-        try(RandomAccessFile raf = new RandomAccessFile(file, "rw")){
+        try(DataOutputStream raf = new DataOutputStream(new FileOutputStream(file))){
             for(int index = 0; index < ellipses.length; index++){
                 raf.writeInt(ellipses[index].getCenter().getX());
                 raf.writeInt(ellipses[index].getCenter().getY());
@@ -120,10 +117,9 @@ public class FileService {
         try(RandomAccessFile raf = new RandomAccessFile(file, "rw")){
             int countEllipse = (int)file.length()  / 16;
             Ellipse[] ellipses = new Ellipse[countEllipse];
-            // REVU читать надо в обратном порядке, а не заносить
-            // используйте метод seek
-            for(int index = countEllipse-1; index >= 0; index--){
-                ellipses[index] =new Ellipse (raf.readInt(), raf.readInt(), raf.readInt(), raf.readInt());
+            for(int index = 0; index < countEllipse; index++){
+                raf.seek(raf.length() - 16 * (index + 1));
+                ellipses[index] = new Ellipse(raf.readInt(), raf.readInt(), raf.readInt(), raf.readInt());
             }
             return ellipses;
         }
@@ -145,47 +141,41 @@ public class FileService {
     }
 
     public static void  writeEllipseToTextFileFourLines(File file, Ellipse ellipse) throws IOException {
-        // REVU кодировка!
-        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))){
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))){
             bw.write(String.format("%d\r\n%d\r\n%d\r\n%d", ellipse.getCenter().getX(), ellipse.getCenter().getY(),
                     ellipse.getXAxis(), ellipse.getYAxis()));
         }
     }
 
     public static Ellipse  readEllipseFromTextFileFourLines(File file) throws IOException {
-        // REVU кодировка!
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))){
             return new Ellipse (Integer.valueOf(br.readLine()), Integer.valueOf(br.readLine()),
                     Integer.valueOf(br.readLine()), Integer.valueOf(br.readLine()));
         }
     }
 
     public static void  writeTraineeToTextFileOneLine(File file, Trainee trainee) throws IOException {
-        // REVU кодировка!
-        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))){
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))){
             bw.write(String.format("%s %s %d", trainee.getFirstName(), trainee.getLastName(),
                     trainee.getRating()));
         }
     }
 
     public static Trainee  readTraineeFromTextFileOneLine(File file) throws IOException, TrainingException, NumberFormatException {
-        // REVU кодировка!
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))){
             String[] split = br.readLine().split(" ");
             return new Trainee (split[0], split[1], Integer.valueOf(split[2]));
         }
     }
 
     public static void  writeTraineeToTextFileThreeLines(File file, Trainee trainee) throws IOException {
-        // REVU кодировка!
-        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))){
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))){
             bw.write(String.format("%s\r\n%s\r\n%d", trainee.getFirstName(), trainee.getLastName(), trainee.getRating()));
         }
     }
 
     public static Trainee  readTraineeFromTextFileThreeLines(File file) throws IOException, TrainingException {
-        // REVU кодировка!
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))){
             return new Trainee(br.readLine(), br.readLine(), Integer.valueOf(br.readLine()));
         }
     }
@@ -214,18 +204,14 @@ public class FileService {
     }
 
     public static void  serializeTraineeToJsonFile(File file, Trainee trainee) throws IOException {
-        // REVU кодировка!
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
-            Gson gson = new Gson();
-            gson.toJson(trainee, bw);
+            new Gson().toJson(trainee, bw);
         }
     }
 
     public static Trainee  deserializeTraineeFromJsonFile(File file) throws IOException {
-        // REVU кодировка!
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
-            Gson gson = new Gson();
-            return gson.fromJson(br, Trainee.class);
+            return new Gson().fromJson(br, Trainee.class);
         }
     }
 }

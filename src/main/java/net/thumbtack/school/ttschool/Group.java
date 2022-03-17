@@ -59,22 +59,18 @@ public class Group {
     }
 
     public Trainee getTraineeByFirstName(String firstName) throws TrainingException {
-        // REVU просто for(Trainee trainee : list)
-        ListIterator<Trainee> listIterator = list.listIterator();
-        while(listIterator.hasNext()){
-            if(listIterator.next().getFirstName().equals(firstName)){
-                return listIterator.previous();
+        for (Trainee trainee : list){
+            if(trainee.getFirstName().equals(firstName)){
+                return trainee;
             }
         }
         throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
     }
 
     public Trainee  getTraineeByFullName(String fullName) throws TrainingException {
-        // REVU то же
-        ListIterator<Trainee> listIterator = list.listIterator();
-        while (listIterator.hasNext()){
-            if(listIterator.next().getFullName().equals(fullName)){
-                return listIterator.previous();
+        for (Trainee trainee : list){
+            if(trainee.getFullName().equals(fullName)){
+                return trainee;
             }
         }
         throw  new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
@@ -86,7 +82,6 @@ public class Group {
 
     public void  sortTraineeListByRatingDescendant(){
         Collections.sort(list, (p1,p2) -> -Integer.compare(p1.getRating(), p2.getRating()));
-//        list.sort((Trainee obj1, Trainee obj2) -> -Integer.compare(obj1.getRating(),obj2.getRating()));
     }
 
     public void reverseTraineeList(){
@@ -105,19 +100,15 @@ public class Group {
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
         int point = Integer.MIN_VALUE;
         List<Trainee> list1 = new ArrayList<>();
-        // REVU просто for(Trainee trainee : list)
-        ListIterator<Trainee> listIterator = list.listIterator();
-        while(listIterator.hasNext()){
-            int rating = listIterator.next().getRating();
+        for(Trainee trainee : list){
+            int rating = trainee.getRating();
             if(rating == point){
-                list1.add(listIterator.previous());
-                listIterator.next();
+                list1.add(trainee);
             }
             if(rating > point){
                 list1.clear();
-                list1.add(listIterator.previous());
+                list1.add(trainee);
                 point = rating;
-                listIterator.next();
             }
         }
         return list1;

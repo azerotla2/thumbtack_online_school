@@ -25,25 +25,12 @@ public enum FillStyle {
     }
 
     public static FillStyle fillStyleFromString(String fillStyleString) throws FillStyleException {
-        if (fillStyleString == null) {
+        try {
+            return FillStyle.valueOf(fillStyleString);
+        } catch (IllegalArgumentException e) {
+            throw new FillStyleException(FillStyleErrorCode.WRONG_FILL_STYLE_STRING);
+        } catch (NullPointerException e){
             throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
-        }
-        // REVU valueOf и ловите IllegalArgumentException
-        // а поймав, выбросите FillStyleException
-//        try {
-//            FillStyle.valueOf(fillStyleString);
-//        } catch (FillStyleException e) {
-//        }
-
-        switch (fillStyleString) {
-                        case "SOLID_RED":
-                        case "SOLID_BLUE":
-                        case "SOLID_GREEN":
-                        case "DIAG_CROSS":
-                        case "CROSS":
-                            return FillStyle.valueOf(fillStyleString);
-                        default:
-                            throw new FillStyleException(FillStyleErrorCode.WRONG_FILL_STYLE_STRING);
         }
     }
 }

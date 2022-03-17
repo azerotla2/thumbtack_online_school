@@ -9,7 +9,7 @@ public class FillStyleException extends Exception{
 
     public FillStyleException(FillStyleErrorCode messageCode){
         super(messageCode.getErrorString());
-        this.messageCode = messageCode;
+        setMessageCode(messageCode);
     }
 
     private FillStyleErrorCode messageCode;

@@ -1,6 +1,7 @@
 package net.thumbtack.school.figures.v3;
 
 import net.thumbtack.school.fillStyle.v3.FillStyle;
+import net.thumbtack.school.fillStyle.v3.FillStyleErrorCode;
 import net.thumbtack.school.iface.v3.Filled;
 import net.thumbtack.school.fillStyle.v3.FillStyleException;
 
@@ -8,7 +9,37 @@ import java.util.Objects;
 
 public class FilledCircle extends Circle implements Filled {
 
-    // REVU В классе должен быть только один конструктор, явно присваивающий значения полям. Остальные должны вызывать другой конструктор
+    private FillStyle color;
+
+    public void setFillStyle(FillStyle style) throws FillStyleException {
+        if (style == null){
+            throw new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
+        }
+            color = style;
+    }
+
+        public void setFillStyle(String style) throws FillStyleException {
+        color = FillStyle.fillStyleFromString(style);
+    }
+
+    public FillStyle getFillStyle(){
+        return color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FilledCircle that = (FilledCircle) o;
+        return color == that.color;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), color);
+    }
+
     public FilledCircle(Point center, int radius, FillStyle style) throws FillStyleException{
         super(center, radius);
         setFillStyle(style);
@@ -72,20 +103,6 @@ public class FilledCircle extends Circle implements Filled {
 
     public boolean isInside(int x, int y){
         return super.isInside(x, y);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        FilledCircle that = (FilledCircle) o;
-        return color == that.color;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), color);
     }
 
 }

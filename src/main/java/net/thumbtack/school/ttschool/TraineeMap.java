@@ -11,13 +11,9 @@ public class TraineeMap {
     }
 
     public void addTraineeInfo(Trainee trainee, String institute) throws TrainingException {
-        // REVU не надо никакого цикла
-        // putIfAbsent и проверить результат
-        for(Trainee key : map.keySet()){
-            if(trainee.equals(key))
+            if(map.putIfAbsent(trainee, institute) != null){
                 throw new TrainingException(TrainingErrorCode.DUPLICATE_TRAINEE);
-        }
-        map.put(trainee, institute);
+            }
     }
 
     public int getTraineesCount(){
@@ -25,29 +21,20 @@ public class TraineeMap {
     }
 
     public void replaceTraineeInfo(Trainee trainee, String institute) throws TrainingException {
-        // REVU не надо containsKey, replace сама скажет
-        if(!map.containsKey(trainee))
+        if(map.replace(trainee, institute) == null)
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
-        else
-            map.replace(trainee, institute);
     }
 
     public String getInstituteByTrainee(Trainee trainee) throws TrainingException {
-        // REVU не надо никакого цикла, просто get и проверить результат
-        for(Map.Entry<Trainee, String> entry : map.entrySet()){
-            if(entry.getKey().equals(trainee)){
-                return entry.getValue();
-            }
+        if(map.get(trainee) == null){
+            throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
         }
-        throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
+            return map.get(trainee);
     }
 
     public void removeTraineeInfo(Trainee trainee) throws TrainingException {
-        // REVU не надо containsKey, remove сама скажет
-        if(!map.containsKey(trainee))
+        if(map.remove(trainee) == null)
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
-        else
-            map.remove(trainee);
     }
 
     public Set<Trainee> getAllTrainees(){
@@ -55,14 +42,11 @@ public class TraineeMap {
     }
 
     public Set<String> getAllInstitutes(){
-        Set<String> institutes = new HashSet<>(map.values());
-        return institutes;
+        return new HashSet<>(map.values());
     }
 
     public boolean isAnyFromInstitute(String institute){
-        // REVU valueOf
-        Set<String> institutes = new HashSet<>(map.values());
-        return institutes.contains(institute);
+        return map.containsValue(institute);
     }
 
 

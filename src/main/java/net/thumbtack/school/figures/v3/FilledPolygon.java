@@ -9,6 +9,8 @@ import java.util.Objects;
 
 public class FilledPolygon extends Polygon implements Filled {
 
+    private FillStyle color;
+
     public FilledPolygon(Point[] points, FillStyle style) throws FillStyleException {
         super(points);
         setFillStyle(style);
@@ -51,6 +53,20 @@ public class FilledPolygon extends Polygon implements Filled {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), color);
+    }
+
+    public void setFillStyle(FillStyle style) throws FillStyleException {
+        if (style == null){
+            throw  new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
+        }
+        this.color = style;
+    }
+
+    public void setFillStyle(String style) throws FillStyleException {
+        if (style == null){
+            throw  new FillStyleException(FillStyleErrorCode.NULL_FILL_STYLE);
+        }
+        color = FillStyle.fillStyleFromString(style);
     }
 
     public FillStyle getFillStyle(){

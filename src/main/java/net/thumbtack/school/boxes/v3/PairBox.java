@@ -10,8 +10,8 @@ public class PairBox<T extends ClosedFigure, V extends ClosedFigure> implements 
 
     public PairBox (T firstBox, V secondBox){
         super();
-        this.firstBox = firstBox;
-        this.secondBox = secondBox;
+        setContentFirst(firstBox);
+        setContentSecond(secondBox);
     }
 
     public T getContentFirst() {
@@ -35,13 +35,13 @@ public class PairBox<T extends ClosedFigure, V extends ClosedFigure> implements 
         return firstBox.getPerimeter() + secondBox.getPerimeter();
     }
 
-    // REVU PairBox - generic, поэтому надо после него <что-то тут>
-    public static boolean isPerimeterEqual(PairBox box1, PairBox box2){
+    public static boolean isPerimeterEqual(PairBox<? extends ClosedFigure , ? extends ClosedFigure > box1, PairBox<? extends ClosedFigure , ? extends ClosedFigure> box2){
         return Math.abs(box1.getPerimeter() - box2.getPerimeter()) < EPS;
     }
 
-    // REVU PairBox - generic, поэтому надо после него <что-то тут>
-    public boolean isPerimeterEqual(PairBox box2){
+    public boolean isPerimeterEqual(PairBox< ? extends ClosedFigure, ? extends ClosedFigure> box2){
         return Math.abs(getPerimeter() - box2.getPerimeter()) < EPS;
     }
+
+
 }
