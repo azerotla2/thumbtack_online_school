@@ -14,11 +14,9 @@ public class MatrixNonSimilarRows {
     public List<int[]> getNonSimilarRows() {
 
         Map<Set<Integer>, int[]> nonSimilarMap = new HashMap();
-        Set<Set<Integer>> keyInteger = new HashSet<>();
 
         for(int i = 0; i < matrix.length; i++){
             Set<Integer> rowHashSetFirst = new HashSet<>(Arrays.stream(matrix[i]).boxed().collect(Collectors.toList()));
-            keyInteger.add(rowHashSetFirst);
             nonSimilarMap.put(rowHashSetFirst, matrix[i]);
         }
         return new ArrayList<>(nonSimilarMap.values());
