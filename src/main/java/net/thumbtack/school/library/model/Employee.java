@@ -2,6 +2,8 @@ package net.thumbtack.school.library.model;
 
 import java.util.Objects;
 
+// REVU ну да, он работник, но сервер же не по найму работников
+// лучше просто User
 public class Employee {
     private String firstname;
     private String lastname;

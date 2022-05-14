@@ -11,7 +11,10 @@ import java.util.UUID;
 
 public class Database {
 
+    // REVU слева интерфейс, если он есть. и имя стоит поменять
+    // private Map<String, Employee> employeesByLogin; (или loginToEmployee)
     private HashMap<String, Employee> employers;
+    // REVU скорее всего не нужен. Во всяком случае это то же, что и employers.values()
     private HashSet<Employee> employeeRegistration;
 
     private static Database database;
@@ -28,6 +31,7 @@ public class Database {
     }
 
     public void addEmployee (Employee employee) throws ServerException {
+        // REVU не надо containsKey, putIfAbsent и проверить результат
         if(employers.containsKey(employee.getLogin())){
             throw new ServerException(ServerError.USER_ALREADY_EXIST);
         }

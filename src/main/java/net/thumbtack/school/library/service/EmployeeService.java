@@ -14,6 +14,7 @@ public class EmployeeService {
     private final EmployeeMapper mapper = new EmployeeMapper();
 
     public void register(RegisterEmployeeDtoRequest empDto) throws ServerException {
+        // REVU вот сюда try и переедет. См. REVU в классе Server
         EmployeeValidator.employeeRegisterValidate(empDto);
         Employee employeeRegister = mapper.toEmployee(empDto);
         dao.insert(employeeRegister);
