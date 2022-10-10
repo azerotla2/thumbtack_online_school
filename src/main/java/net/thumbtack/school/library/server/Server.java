@@ -13,16 +13,12 @@ public class Server {
     private final EmployeeService service = new EmployeeService();
     private final Gson gson = new Gson();
 
-    public ServerResponse registerEmployee(String request) {
-        try {
-            RegisterEmployeeDtoRequest empDto = gson.fromJson(request, RegisterEmployeeDtoRequest.class);
-            service.register(empDto);
-            return new ServerResponse(200, null);
-        } catch (ServerException se) {
-            return new ServerResponse(400, se.getServerError().getErrorString());
-        } catch (Exception ex) {
-            return new ServerResponse(400, ex.getLocalizedMessage());
-        }
+    public void registerEmployee(String request) throws ServerException {
+        service.register(request);
+    }
+
+    public void loginEmployee(String request) throws ServerException {
+        service.login(request);
     }
 
 }
