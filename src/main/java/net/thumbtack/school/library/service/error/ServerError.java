@@ -13,12 +13,7 @@ public enum ServerError {
     FIRSTNAME_UNFILLED("FirstName filled is empty"),
     LASTNAME_UNFILLED("Lastname filled is empty"),
     EMPLOYEE_NOT_FOUND("There is no employee with this login"),
-    WRONG_PASSWORD("Uncorrected password"),
-    REQUEST_ADD_BOOK_NULL("Book add request is empty"),
-    TITLE_BOOK_NULL("Title book is empty"),
-    AUTHORS_BOOK_NULL("Authors book is empty"),
-    SECTION_BOOK_NULL("Section book is empty"),
-    WRONG_CHARACTERS("Entry has unwanted characters");
+    WRONG_PASSWORD("Uncorrected password");
 
 
 
