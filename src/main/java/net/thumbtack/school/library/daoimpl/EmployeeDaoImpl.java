@@ -14,8 +14,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
         database.addEmployee(employee);
     }
 
-    public void login(EmployeeLogin employeeLogin) {
-
+    public void login(EmployeeLogin employeeLogin) throws ServerException {
+        database.loginEmployee(employeeLogin);
     }
 
 }
