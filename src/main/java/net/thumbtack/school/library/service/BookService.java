@@ -16,6 +16,7 @@ public class BookService {
 
     public ServerResponse addBookLibrary(String token, String requestJsonString) throws ServerException {
         AddBookDtoRequest addBookDtoRequest = service.getClassFromJson(requestJsonString, AddBookDtoRequest.class);
+        BookValidator.bookAddValidator(addBookDtoRequest);
 
         return null;
     }
