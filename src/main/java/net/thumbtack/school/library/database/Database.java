@@ -44,8 +44,8 @@ public class Database {
             throw new ServerException(ServerError.EMPLOYEE_NOT_FOUND);
     }
 
-    public Employee getEmployee(String key){
-        return employeesByLogin.get(key);
+    public Employee getEmployee(String loginEmployee){
+        return employeesByLogin.get(loginEmployee);
     }
 
 }

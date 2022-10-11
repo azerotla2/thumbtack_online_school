@@ -10,11 +10,10 @@ import net.thumbtack.school.library.dto.response.LoginDtoResponse;
 import net.thumbtack.school.library.mapper.EmployeeMapper;
 import net.thumbtack.school.library.model.Employee;
 import net.thumbtack.school.library.model.EmployeeLogin;
+import net.thumbtack.school.library.model.TokenEmployee;
 import net.thumbtack.school.library.service.error.ServerError;
 import net.thumbtack.school.library.service.error.ServerException;
 
-import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.UUID;
 
 
@@ -54,7 +53,8 @@ public class EmployeeService {
             EmployeeValidator.employeeLoginValidate(loginDto);
             EmployeeLogin employeeLogin = mapper.toLogin(loginDto);
             dao.login(employeeLogin);
-            LoginDtoResponse loginDtoResponse = new LoginDtoResponse(gson.toJson(UUID.randomUUID().toString()));
+            TokenEmployee token = new TokenEmployee(UUID.randomUUID().toString());
+            LoginDtoResponse loginDtoResponse = new LoginDtoResponse(gson.toJson(token));
             return new ServerResponse(CODE_SUCCESS, loginDtoResponse.getToken());
         } catch (ServerException se){
             return new ServerResponse(CODE_FAILURE, se.getServerError().getErrorString());
