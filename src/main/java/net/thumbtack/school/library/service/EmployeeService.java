@@ -10,10 +10,11 @@ import net.thumbtack.school.library.dto.response.LoginDtoResponse;
 import net.thumbtack.school.library.mapper.EmployeeMapper;
 import net.thumbtack.school.library.model.Employee;
 import net.thumbtack.school.library.model.EmployeeLogin;
-import net.thumbtack.school.library.model.TokenEmployee;
+import net.thumbtack.school.library.model.Token;
 import net.thumbtack.school.library.service.error.ServerError;
 import net.thumbtack.school.library.service.error.ServerException;
 
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -24,6 +25,7 @@ public class EmployeeService {
     private final Gson gson = new Gson();
     private static final int CODE_SUCCESS = 200;
     private static final int CODE_FAILURE = 400;
+    private Map<Token, String> mapTokenEmployee;
 
     public ServerResponse register(String serviceRequest) throws ServerException {
         try {
@@ -53,7 +55,8 @@ public class EmployeeService {
             EmployeeValidator.employeeLoginValidate(loginDto);
             EmployeeLogin employeeLogin = mapper.toLogin(loginDto);
             dao.login(employeeLogin);
-            TokenEmployee token = new TokenEmployee(UUID.randomUUID().toString());
+            Token token = new Token(UUID.randomUUID().toString());
+            employeeForToken(token, employeeLogin.getLogin());
             LoginDtoResponse loginDtoResponse = new LoginDtoResponse(gson.toJson(token));
             return new ServerResponse(CODE_SUCCESS, loginDtoResponse.getToken());
         } catch (ServerException se){
@@ -61,4 +64,12 @@ public class EmployeeService {
         }
     }
 
+    public void employeeForToken (Token token, String loginEmployee){
+        mapTokenEmployee.put(token, loginEmployee);
+        //перенести метод в логин
+    }
+
+    public Employee getEmployeeForToken (Token token){
+        return null;
+    }
 }
