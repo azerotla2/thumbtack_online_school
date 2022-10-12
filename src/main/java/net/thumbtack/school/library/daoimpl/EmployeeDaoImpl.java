@@ -18,4 +18,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
         database.loginEmployee(employeeLogin);
     }
 
+    public void getEmployee (){
+
+    }
+
 }

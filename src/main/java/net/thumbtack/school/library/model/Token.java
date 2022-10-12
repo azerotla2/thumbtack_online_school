@@ -2,11 +2,11 @@ package net.thumbtack.school.library.model;
 
 import java.util.Map;
 
-public class TokenEmployee {
+public class Token {
     private String token;
     private Map<String, Employee> tokenEmployee;
 
-    public TokenEmployee(String token){
+    public Token(String token){
         setToken(token);
 
     }
