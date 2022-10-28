@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 public class Book {
 
+    private String idBook;
     private String title;
     private HashSet<String> authors;
     private HashSet<String> section;
@@ -11,16 +12,19 @@ public class Book {
     private Boolean reserved;
     private Employee holder;
     private Employee reader;
+
 //    private static boolean RESERVED = false;
 //    private static boolean FREE = true;
 
-    public Book(String title, HashSet<String> authors, HashSet<String> section, String returnDate, Boolean reserved, Employee holder){
+    public Book(String idBook, String title, HashSet<String> authors, HashSet<String> section, String returnDate, Boolean reserved, Employee holder, Employee reader){
+        setIdBook(idBook);
         setTitle(title);
         setAuthors(authors);
         setSection(section);
         setReturnDate(returnDate);
         setReserved(reserved);
         setHolder(holder);
+        setReader(reader);
     }
 
     public void setTitle(String title) {
@@ -75,7 +79,12 @@ public class Book {
         this.reader = reader;
     }
 
-    public Employee getReader() {
-        return reader;
+    public void setIdBook(String idBook) {
+        this.idBook = idBook;
     }
+
+    public String getIdBook() {
+        return idBook;
+    }
+
 }

@@ -1,20 +1,19 @@
 package net.thumbtack.school.library.service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import net.thumbtack.school.library.dao.EmployeeDao;
 import net.thumbtack.school.library.daoimpl.EmployeeDaoImpl;
 import net.thumbtack.school.library.dto.request.LoginEmployeeDtoRequest;
 import net.thumbtack.school.library.dto.request.RegisterEmployeeDtoRequest;
+import net.thumbtack.school.library.dto.response.EmptyDtoResponse;
 import net.thumbtack.school.library.dto.response.LoginDtoResponse;
 import net.thumbtack.school.library.mapper.EmployeeMapper;
 import net.thumbtack.school.library.model.Employee;
 import net.thumbtack.school.library.model.EmployeeLogin;
-import net.thumbtack.school.library.model.Token;
 import net.thumbtack.school.library.service.error.ServerError;
 import net.thumbtack.school.library.service.error.ServerException;
 
-import java.util.Map;
+
 import java.util.UUID;
 
 
@@ -25,15 +24,15 @@ public class EmployeeService {
     private final Gson gson = new Gson();
     private static final int CODE_SUCCESS = 200;
     private static final int CODE_FAILURE = 400;
-    private Map<Token, String> mapTokenEmployee;
+    private final ServiceForServices service = new ServiceForServices();
 
-    public ServerResponse register(String serviceRequest) throws ServerException {
+    public ServerResponse register(String serviceRequest) {
         try {
-            RegisterEmployeeDtoRequest empDto = getClassFromJson(serviceRequest, RegisterEmployeeDtoRequest.class);
+            RegisterEmployeeDtoRequest empDto = service.getClassFromJson(serviceRequest, RegisterEmployeeDtoRequest.class);
             EmployeeValidator.employeeRegisterValidate(empDto);
             Employee employeeRegister = mapper.toEmployee(empDto);
             dao.insert(employeeRegister);
-            return new ServerResponse(CODE_SUCCESS, gson.toJson(new EmptyResponse()));
+            return new ServerResponse(CODE_SUCCESS, gson.toJson(new EmptyDtoResponse()));
         } catch (ServerException se) {
             return new ServerResponse(CODE_FAILURE, se.getServerError().getErrorString());
         } catch (Exception ex) {
@@ -41,35 +40,47 @@ public class EmployeeService {
         }
     }
 
-    public <T> T getClassFromJson(String request, Class<T> classOfT) throws ServerException{
-        try {
-            return gson.fromJson(request, classOfT);
-        } catch (JsonSyntaxException jse){
-            throw new ServerException(ServerError.WRONG_GSON);
-        }
-    }
-
     public ServerResponse login(String requestJsonString) throws ServerException {
         try {
-            LoginEmployeeDtoRequest loginDto = getClassFromJson(requestJsonString, LoginEmployeeDtoRequest.class);
+            LoginEmployeeDtoRequest loginDto = service.getClassFromJson(requestJsonString, LoginEmployeeDtoRequest.class);
             EmployeeValidator.employeeLoginValidate(loginDto);
             EmployeeLogin employeeLogin = mapper.toLogin(loginDto);
             dao.login(employeeLogin);
-            Token token = new Token(UUID.randomUUID().toString());
-            employeeForToken(token, employeeLogin.getLogin());
-            LoginDtoResponse loginDtoResponse = new LoginDtoResponse(gson.toJson(token));
-            return new ServerResponse(CODE_SUCCESS, loginDtoResponse.getToken());
+            String token = UUID.randomUUID().toString();
+            LoginDtoResponse loginDtoResponse = new LoginDtoResponse(token);
+            Employee employee = dao.getEmployee(employeeLogin.getLogin());
+            dao.addLoginEmployee(token, employee);
+            return new ServerResponse(CODE_SUCCESS, gson.toJson(loginDtoResponse));
         } catch (ServerException se){
             return new ServerResponse(CODE_FAILURE, se.getServerError().getErrorString());
         }
     }
 
-    public void employeeForToken (Token token, String loginEmployee){
-        mapTokenEmployee.put(token, loginEmployee);
-        //перенести метод в логин
+
+
+    public ServerResponse logout(String token){
+        try {
+            if(dao.removeEmployeeByToken(token)== null)
+                throw new ServerException(ServerError.EMPLOYEE_NOT_LOGOUT);
+            else
+                return new ServerResponse(CODE_SUCCESS, gson.toJson(new EmptyDtoResponse()));
+
+        } catch (ServerException se){
+            return new ServerResponse(CODE_FAILURE, se.getServerError().getErrorString());
+        }
     }
 
-    public Employee getEmployeeForToken (Token token){
-        return null;
+    public ServerResponse removeUser(String token){
+        try{
+            Employee employee = dao.getEmployeeByToken(token);
+            dao.removeEmployee(employee);
+            dao.removeEmployeeByToken(token);
+            return new ServerResponse(CODE_SUCCESS, gson.toJson(new EmptyDtoResponse()));
+        } catch (Exception ex){
+            return new ServerResponse(CODE_FAILURE, ex.getLocalizedMessage());
+        }
     }
+
+
+
 }

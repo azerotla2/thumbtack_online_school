@@ -1,8 +1,5 @@
 package net.thumbtack.school.library.service;
 
-import com.google.gson.Gson;
-import net.thumbtack.school.hiring.server.Server;
-import org.testng.annotations.Test;
 
 public class ServerResponse {
 
