@@ -1,6 +1,5 @@
 package net.thumbtack.school.library.model;
 
-import java.util.Objects;
 
 public class EmployeeLogin {
     private String login;

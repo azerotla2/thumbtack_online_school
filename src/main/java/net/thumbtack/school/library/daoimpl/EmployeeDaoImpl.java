@@ -8,7 +8,7 @@ import net.thumbtack.school.library.service.error.ServerException;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
-    private Database database = Database.getDatabase();
+    private final Database database = Database.getDatabase();
 
     public void insert(Employee employee) throws ServerException {
         database.addEmployee(employee);
@@ -17,5 +17,27 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void login(EmployeeLogin employeeLogin) throws ServerException {
         database.loginEmployee(employeeLogin);
     }
+
+    public Employee getEmployee (String loginEmployee){
+        return database.getEmployee(loginEmployee);
+    }
+
+    public void removeEmployee (Employee employee) throws ServerException {
+        database.removeEmployee(employee);
+    }
+
+    public void addLoginEmployee(String token, Employee employee){
+        database.addLoginEmployee(token, employee);
+    }
+
+    public Employee getEmployeeByToken(String token){
+        return database.getEmployeeByToken(token);
+    }
+
+    public Employee removeEmployeeByToken(String token){
+        return database.removeEmployeeByToken(token);
+    }
+
+
 
 }

@@ -1,24 +1,59 @@
 package net.thumbtack.school.library.server;
 
-import com.google.gson.Gson;
-import net.thumbtack.school.library.daoimpl.EmployeeDaoImpl;
-import net.thumbtack.school.library.dto.request.RegisterEmployeeDtoRequest;
-import net.thumbtack.school.library.mapper.EmployeeMapper;
+import net.thumbtack.school.library.service.BookService;
 import net.thumbtack.school.library.service.EmployeeService;
 import net.thumbtack.school.library.service.ServerResponse;
 import net.thumbtack.school.library.service.error.ServerException;
 
 public class Server {
 
-    private final EmployeeService service = new EmployeeService();
-    private final Gson gson = new Gson();
+    private final EmployeeService serviceEmployee = new EmployeeService();
+    private final BookService bookService = new BookService();
 
-    public void registerEmployee(String request) throws ServerException {
-        service.register(request);
+    public ServerResponse registerEmployee(String request) {
+        return serviceEmployee.register(request);
     }
 
-    public void loginEmployee(String request) throws ServerException {
-        service.login(request);
+    public ServerResponse loginEmployee(String request) throws ServerException {
+         return serviceEmployee.login(request);
     }
+
+    public ServerResponse logoutEmployee(String token){
+        return serviceEmployee.logout(token);
+    }
+
+    public ServerResponse removeEmployee(String token){
+        return serviceEmployee.removeUser(token);
+    }
+
+    public ServerResponse addBookInLibrary(String request, String token) {
+        return bookService.addBookLibrary(token, request);
+    }
+
+    public ServerResponse getAllBook (){
+        return bookService.getAllBook();
+    }
+
+    public ServerResponse getBookSpecificSection(String request){
+        return bookService.getBookSpecificSection(request);
+    }
+
+    public ServerResponse getBookSpecificAuthors(String request){
+        return bookService.getBookSpecificAuthor(request);
+    }
+
+    public ServerResponse getBookByTitle(String request){
+        return bookService.getBookByTitle(request);
+    }
+
+    public ServerResponse reservedBookById (String token, String request){
+        return bookService.reservedBookById(token, request);
+    }
+
+    public ServerResponse deleteBookById(String token, String request){
+        return bookService.deleteBook(token, request);
+    }
+
+
 
 }

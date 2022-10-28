@@ -1,7 +1,5 @@
 package net.thumbtack.school.library.dto.request;
 
-import com.google.gson.Gson;
-import net.thumbtack.school.library.model.Employee;
 
 public class RegisterEmployeeDtoRequest {
     private String firstname;
