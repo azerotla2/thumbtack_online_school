@@ -33,12 +33,6 @@ public class TestEmployee {
         database.addEmployee(new Employee("Mikhail", "Abramchuk", "mabr", "123456"));
     }
 
-//    public void addDatabaseEmployee() throws ServerException {
-//        database.addEmployee(new Employee("Ivan", "Ivanov", "IvanI", "qwerty"));
-//        database.addEmployee(new Employee("Oleg", "Popov", "PopovO", "qwerty22"));
-//        database.addEmployee(new Employee("Andrey", "Sidorov", "SidorovA", "112233"));
-//    }
-
     public ServerResponse register(String firstname, String lastname, String login, String password) throws ServerException {
         RegisterEmployeeDtoRequest registerEmployeeDtoRequest = new RegisterEmployeeDtoRequest(firstname, lastname, login, password);
         String jsonRequest = gson.toJson(registerEmployeeDtoRequest);
