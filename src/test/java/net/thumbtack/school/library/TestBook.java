@@ -20,7 +20,6 @@ public class TestBook {
     private final Server server = new Server();
     private final Gson gson = new Gson();
     private final Database database = Database.getDatabase();
-    private final TestEmployee testEmployee = new TestEmployee();
     private static final int CODE_SUCCESS = 200;
     private static final int CODE_FAILURE = 400;
 
@@ -219,7 +218,7 @@ public class TestBook {
     }
 
     public ServerResponse reservedBookById(String idBook, String bookingPeriod) throws ServerException {
-        String token = testEmployee.getTokenByLogin();
+        String token = getTokenByLogin();
         ReservedBookByIdDtoRequest request = new ReservedBookByIdDtoRequest(idBook, bookingPeriod);
         String jsonRequest = gson.toJson(request);
         return server.reservedBookById(token, jsonRequest);
