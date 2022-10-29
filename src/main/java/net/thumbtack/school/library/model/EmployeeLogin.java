@@ -1,6 +1,7 @@
 package net.thumbtack.school.library.model;
 
 
+// REVU не нужен. Классы модели - это сущности задачи, а это не сущность
 public class EmployeeLogin {
     private String login;
     private String password;

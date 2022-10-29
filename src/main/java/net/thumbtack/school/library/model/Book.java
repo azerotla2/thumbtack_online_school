@@ -8,7 +8,7 @@ public class Book {
     private String title;
     private HashSet<String> authors;
     private HashSet<String> section;
-    private String returnDate; //может поставить сразу формат даты
+    private String returnDate; //может поставить сразу формат даты // REVU да, лучше так, тогда LocalDate
     private Boolean reserved;
     private Employee holder;
     private Employee reader;

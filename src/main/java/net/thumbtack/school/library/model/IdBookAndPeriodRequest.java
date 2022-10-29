@@ -1,5 +1,6 @@
 package net.thumbtack.school.library.model;
 
+// REVU не нужен
 public class IdBookAndPeriodRequest {
     private String idBook;
     private String BookingPeriod;
