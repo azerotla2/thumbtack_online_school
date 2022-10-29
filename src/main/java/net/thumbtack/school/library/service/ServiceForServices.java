@@ -5,6 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import net.thumbtack.school.library.service.error.ServerError;
 import net.thumbtack.school.library.service.error.ServerException;
 
+// REVU ну и название :-)
 public class ServiceForServices {
 
     private final Gson gson = new Gson();

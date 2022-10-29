@@ -2,6 +2,7 @@ package net.thumbtack.school.library.model;
 
 import java.util.HashSet;
 
+// REVU не нужен. В Book все есть, а в Employee можно добавить 2 List<Book> - список книг, которые он передал и которые взял
 public class BookForUser {
 
     private String numberBook;
