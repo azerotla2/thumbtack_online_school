@@ -10,13 +10,11 @@ import net.thumbtack.school.library.server.Server;
 import net.thumbtack.school.library.service.ServerResponse;
 import net.thumbtack.school.library.service.error.ServerError;
 import net.thumbtack.school.library.service.error.ServerException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-
-
-import static org.junit.Assert.*;
 
 public class TestEmployee {
 
@@ -27,7 +25,7 @@ public class TestEmployee {
     private static final int CODE_FAILURE = 400;
 
 
-    @Before
+    @BeforeEach
     public void rebootDatabaseEmployee() throws ServerException {
         database.clearDatabaseEmployee();
         database.addEmployee(new Employee("Mikhail", "Abramchuk", "mabr", "123456"));

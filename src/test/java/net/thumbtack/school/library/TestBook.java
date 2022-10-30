@@ -10,12 +10,12 @@ import net.thumbtack.school.library.server.Server;
 
 import net.thumbtack.school.library.service.ServerResponse;
 import net.thumbtack.school.library.service.error.ServerException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-
-import static org.junit.Assert.*;
 public class TestBook {
     private final Server server = new Server();
     private final Gson gson = new Gson();
@@ -24,7 +24,7 @@ public class TestBook {
     private static final int CODE_FAILURE = 400;
 
 
-    @Before
+    @BeforeEach
     public void rebootDatabaseEmployee() throws ServerException {
         database.clearDatabaseEmployee();
         database.addEmployee(new Employee("Mikhail", "Abramchuk", "mabr", "123456"));
