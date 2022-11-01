@@ -11,5 +11,5 @@ public interface EmployeeDao {
     void addLoginEmployee(String token, Employee employee);
     Employee getEmployeeByToken(String token);
     Employee removeEmployeeByToken(String token);
-
+    void clearDatabaseEmployee();
 }

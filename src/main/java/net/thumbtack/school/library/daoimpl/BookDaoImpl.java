@@ -61,4 +61,8 @@ public class BookDaoImpl implements BookDao {
     public int getCountAddBook(){
         return database.getCountAddBook();
     }
+
+    public void clearLibrary(){
+        database.clearLibrary();
+    }
 }
