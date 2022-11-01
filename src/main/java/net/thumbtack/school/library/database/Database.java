@@ -10,13 +10,12 @@ import java.util.*;
 public class Database {
 
     private final Map<String, Employee> employeesByLogin;
-    private final Map<String, Book> bookByIdBook;
-    private final Map<String, BookForUser> bookForUserById;
+    private final Map<Integer, Book> bookByIdBook;
     private final Map<String, Employee> employeeByToken;
-    private final Multimap<String, BookForUser> bookBySectionForUser;
-    private final Multimap<String, BookForUser> bookByAuthorsForUser;
-    private final Multimap<String, BookForUser> bookByTitleForUser;
-
+    private final Multimap<String, Book> bookBySectionForUser;
+    private final Multimap<String, Book> bookByAuthorsForUser;
+    private final Multimap<String, Book> bookByTitleForUser;
+    private int countAddBook = 1;
 
 
     private static Database database;
@@ -25,10 +24,10 @@ public class Database {
         employeesByLogin = new HashMap<>();
         employeeByToken = new HashMap<>();
         bookByIdBook = new HashMap<>();
-        bookForUserById = new HashMap<>();
         bookByAuthorsForUser = ArrayListMultimap.create();
         bookBySectionForUser = ArrayListMultimap.create();
         bookByTitleForUser = ArrayListMultimap.create();
+
     }
 
     public static Database getDatabase(){
@@ -43,7 +42,7 @@ public class Database {
     }
 
     public void addLoginEmployee(String token, Employee employee){
-        employeeByToken.put(token, employee);
+        employeeByToken.putIfAbsent(token, employee);
     }
 
     public Employee getEmployeeByToken (String token){
@@ -58,9 +57,9 @@ public class Database {
         employeesByLogin.clear();
     }
 
-    public void loginEmployee (EmployeeLogin employeeLogin) throws ServerException {
-        if(employeesByLogin.containsKey(employeeLogin.getLogin())){
-            if(!employeeLogin.getPassword().equals(employeesByLogin.get(employeeLogin.getLogin()).getPassword()))
+    public void loginEmployee (String login, String password) throws ServerException {
+        if(employeesByLogin.containsKey(login)){
+            if(!password.equals(employeesByLogin.get(login).getPassword()))
                 throw new ServerException(ServerError.WRONG_PASSWORD);
         }
         else
@@ -81,88 +80,72 @@ public class Database {
         bookByTitleForUser.clear();
         bookByAuthorsForUser.clear();
         bookBySectionForUser.clear();
-        bookForUserById.clear();
+        countAddBook = 1;
     }
 
     public void addBook(Book book) throws ServerException {
         if(bookByIdBook.putIfAbsent(book.getIdBook(), book) != null)
             throw new ServerException(ServerError.WRONG_ID_BOOK);
+        addBookByAuthors(book);
+        addBookBySections(book);
+        addBookByTitle(book);
+        countAddBook++;
     }
 
-    //можно ли реализовать это здесь или только через сервис? (М)
-    public void addBookByAuthors(BookForUser bookForUser){
-        Iterator<String> author = bookForUser.getAuthors().iterator();
+    public int getCountAddBook(){
+        return countAddBook;
+    }
+
+    public void addBookByAuthors(Book book){
+        Iterator<String> author = book.getAuthors().iterator();
         while (author.hasNext())
-            bookByAuthorsForUser.put(author.next(), bookForUser);
+            bookByAuthorsForUser.put(author.next(), book);
     }
 
-    public void deleteBookByAuthors(BookForUser bookForUser){
-        Iterator<String> author = bookForUser.getAuthors().iterator();
+    public void deleteBookByAuthors(Book book){
+        Iterator<String> author = book.getAuthors().iterator();
         while (author.hasNext())
-            bookByAuthorsForUser.remove(author.next(), bookForUser);
+            bookByAuthorsForUser.remove(author.next(), book);
     }
 
-    public void addBookBySections(BookForUser bookForUser){
-        Iterator<String> section = bookForUser.getSections().iterator();
+    public void addBookBySections(Book book){
+        Iterator<String> section = book.getSections().iterator();
         while (section.hasNext())
-            bookBySectionForUser.put(section.next(), bookForUser);
+            bookBySectionForUser.put(section.next(), book);
     }
 
-    public void deleteBookBySections(BookForUser bookForUser){
-        Iterator<String> section = bookForUser.getSections().iterator();
+    public void deleteBookBySections(Book book){
+        Iterator<String> section = book.getSections().iterator();
         while (section.hasNext())
-            bookBySectionForUser.remove(section.next(), bookForUser);
+            bookBySectionForUser.remove(section.next(), book);
     }
 
-    public void addBookByTitle(BookForUser bookForUser){
-        bookByTitleForUser.put(bookForUser.getTitle(), bookForUser);
-    }
-
-
-    public void deleteBookByTitle(BookForUser bookForUser){
-        bookByTitleForUser.remove(bookForUser.getTitle(), bookForUser);
+    public void addBookByTitle(Book book){
+        bookByTitleForUser.put(book.getTitle(), book);
     }
 
 
-    public void addBookForUser(BookForUser bookForUser){
-        bookForUserById.put(bookForUser.getNumberBook(), bookForUser);
-        addBookByAuthors(bookForUser);
-        addBookBySections(bookForUser);
-        addBookByTitle(bookForUser);
-    }
-
-    public void deleteBookForUser(BookForUser bookForUser){
-        bookForUserById.remove(bookForUser.getNumberBook());
-        deleteBookByAuthors(bookForUser);
-        deleteBookBySections(bookForUser);
-        deleteBookByTitle(bookForUser);
+    public void deleteBookByTitle(Book book){
+        bookByTitleForUser.remove(book.getTitle(), book);
     }
 
     public Collection<Book> getAllBook(){
         return bookByIdBook.values();
     }
 
-    public Collection<BookForUser> getAllBookForEmployee(){
-        return bookForUserById.values();
-    }
-
-    public Collection<BookForUser> getBookByTitle(String title){
+    public Collection<Book> getBookByTitle(String title){
         return bookByTitleForUser.get(title);
     }
 
-    public String getSizeLibrary(){
-        return String.valueOf(bookByIdBook.size()+1);
-    }
-
-    public Collection<BookForUser> getBookBySection(String section){
+    public Collection<Book> getBookBySection(String section){
         return bookBySectionForUser.get(section);
     }
 
-    public Collection<BookForUser> getBooksByAuthor(String author){
+    public Collection<Book> getBooksByAuthor(String author){
         return bookByAuthorsForUser.get(author);
     }
 
-    public String bookingPeriod(String idBook){
+    public Date bookingPeriod(int idBook){
         Book book = bookByIdBook.get(idBook);
         if(book.getReserved()){
             return book.getReturnDate();
@@ -170,7 +153,7 @@ public class Database {
             return null;
     }
 
-    public Book giveEmployeeBook(String idBook){
+    public Book giveEmployeeBook(int idBook){
         return bookByIdBook.get(idBook);
     }
 
@@ -178,14 +161,19 @@ public class Database {
         bookByIdBook.replace(newInfoBook.getIdBook(), newInfoBook);
     }
 
-    public Employee getHolderBook (String idBook){
+    public Employee getHolderBook (int idBook){
         return bookByIdBook.get(idBook).getHolder();
     }
 
-    public void deleteBook(String idBook, String randomUUID){
-        deleteBookForUser(bookForUserById.get(idBook));
-        bookByIdBook.put(randomUUID, null);
-        bookByIdBook.remove(idBook);
+    public void deleteBook(int idBook) throws ServerException {
+        if(bookByIdBook.get(idBook) == null)
+            throw new ServerException(ServerError.ID_BOOK_NULL);
+        else {
+            Book book = bookByIdBook.remove(idBook);
+            deleteBookByAuthors(book);
+            deleteBookBySections(book);
+            deleteBookByTitle(book);
+        }
     }
 
 }

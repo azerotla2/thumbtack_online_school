@@ -1,21 +1,20 @@
 package net.thumbtack.school.library.dto.response;
 
-import net.thumbtack.school.library.model.BookForUser;
 
-import java.util.Set;
+import java.util.List;
 
 public class ShowBookSpecificAuthorsDtoResponse {
-    private Set<BookForUser> collectionBook;
+    private List<BookDtoResponse> collectionBook;
 
-    public ShowBookSpecificAuthorsDtoResponse(Set<BookForUser> collectionBook){
+    public ShowBookSpecificAuthorsDtoResponse(List<BookDtoResponse> collectionBook){
         setCollectionBook(collectionBook);
     }
 
-    public void setCollectionBook(Set<BookForUser> collectionBook) {
+    public void setCollectionBook(List<BookDtoResponse> collectionBook) {
         this.collectionBook = collectionBook;
     }
 
-    public Set<BookForUser> getCollectionBook() {
+    public List<BookDtoResponse> getCollectionBook() {
         return collectionBook;
     }
 }

@@ -1,26 +1,25 @@
 package net.thumbtack.school.library.model;
 
+import java.util.Date;
 import java.util.HashSet;
 
 public class Book {
 
-    private String idBook;
+    private int idBook;
     private String title;
     private HashSet<String> authors;
     private HashSet<String> section;
-    private String returnDate; //может поставить сразу формат даты // REVU да, лучше так, тогда LocalDate
-    private Boolean reserved;
+    private Date returnDate;
+    private boolean reserved;
     private Employee holder;
     private Employee reader;
 
-//    private static boolean RESERVED = false;
-//    private static boolean FREE = true;
 
-    public Book(String idBook, String title, HashSet<String> authors, HashSet<String> section, String returnDate, Boolean reserved, Employee holder, Employee reader){
+    public Book(int idBook, String title, HashSet<String> authors, HashSet<String> section, Date returnDate, boolean reserved, Employee holder, Employee reader){
         setIdBook(idBook);
         setTitle(title);
         setAuthors(authors);
-        setSection(section);
+        setSections(section);
         setReturnDate(returnDate);
         setReserved(reserved);
         setHolder(holder);
@@ -43,27 +42,27 @@ public class Book {
         return authors;
     }
 
-    public void setSection(HashSet<String> section) {
+    public void setSections(HashSet<String> section) {
         this.section = section;
     }
 
-    public HashSet<String> getSection() {
+    public HashSet<String> getSections() {
         return section;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
 
-    public String getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
     }
 
-    public void setReserved(Boolean reserved) {
+    public void setReserved(boolean reserved) {
         this.reserved = reserved;
     }
 
-    public Boolean getReserved() {
+    public boolean getReserved() {
         return reserved;
     }
 
@@ -79,11 +78,11 @@ public class Book {
         this.reader = reader;
     }
 
-    public void setIdBook(String idBook) {
+    public void setIdBook(int idBook) {
         this.idBook = idBook;
     }
 
-    public String getIdBook() {
+    public int getIdBook() {
         return idBook;
     }
 
