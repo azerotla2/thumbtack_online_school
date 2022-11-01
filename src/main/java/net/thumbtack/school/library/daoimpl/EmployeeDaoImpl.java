@@ -3,7 +3,6 @@ package net.thumbtack.school.library.daoimpl;
 import net.thumbtack.school.library.dao.EmployeeDao;
 import net.thumbtack.school.library.database.Database;
 import net.thumbtack.school.library.model.Employee;
-import net.thumbtack.school.library.model.EmployeeLogin;
 import net.thumbtack.school.library.service.error.ServerException;
 
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -14,8 +13,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
         database.addEmployee(employee);
     }
 
-    public void login(EmployeeLogin employeeLogin) throws ServerException {
-        database.loginEmployee(employeeLogin);
+    public void login(String login, String password) throws ServerException {
+        database.loginEmployee(login, password);
     }
 
     public Employee getEmployee (String loginEmployee){

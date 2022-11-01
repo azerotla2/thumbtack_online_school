@@ -54,7 +54,7 @@ public class TestBook {
         ServerResponse serverResponse = server.getAllBook();
         assertEquals(CODE_SUCCESS, serverResponse.getResponseCode());
         ShowAllBookDtoResponse allBookResponse = gson.fromJson(serverResponse.getResponseData(), ShowAllBookDtoResponse.class);
-        assertEquals(allBookResponse.getCollectionBook().size(), database.getAllBookForEmployee().size());
+        assertEquals(allBookResponse.getCollectionBook().size(), database.getAllBook().size());
     }
 
     @Test
@@ -169,10 +169,10 @@ public class TestBook {
 
     @Test
     public void testDeleteBook() throws ServerException {
-        int sizeLibraryBefore = database.getAllBookForEmployee().size();
+        int sizeLibraryBefore = database.getAllBook().size();
         ServerResponse serverResponse = deleteBook("3");
         assertEquals(CODE_SUCCESS, serverResponse.getResponseCode());
-        int sizeLibraryAfter = database.getAllBookForEmployee().size();
+        int sizeLibraryAfter = database.getAllBook().size();
         assertEquals(sizeLibraryBefore - 1, sizeLibraryAfter);
     }
 

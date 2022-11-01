@@ -3,11 +3,11 @@ package net.thumbtack.school.library.daoimpl;
 import net.thumbtack.school.library.dao.BookDao;
 import net.thumbtack.school.library.database.Database;
 import net.thumbtack.school.library.model.Book;
-import net.thumbtack.school.library.model.BookForUser;
 import net.thumbtack.school.library.model.Employee;
 import net.thumbtack.school.library.service.error.ServerException;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class BookDaoImpl implements BookDao {
 
@@ -21,35 +21,24 @@ public class BookDaoImpl implements BookDao {
         return database.getAllBook();
     }
 
-    public Collection<BookForUser> getAllBooksForEmployee(){
-        return database.getAllBookForEmployee();
-    }
-
-    public String getSizeLibrary(){
-        return database.getSizeLibrary();
-    }
-
-    public Collection<BookForUser> getBooksBySection(String section){
+    public Collection<Book> getBooksBySection(String section){
         return database.getBookBySection(section);
     }
 
-    public Collection<BookForUser> getBooksByAuthor(String author) {
+    public Collection<Book> getBooksByAuthor(String author) {
         return database.getBooksByAuthor(author);
     }
 
-    public void insertBookForResponse(BookForUser bookForUser) {
-        database.addBookForUser(bookForUser);
-    }
 
-    public Collection<BookForUser> getBooksByTitle(String title){
+    public Collection<Book> getBooksByTitle(String title){
         return database.getBookByTitle(title);
     }
 
-    public String bookingPeriod(String idBook){
+    public Date bookingPeriod(int idBook){
         return database.bookingPeriod(idBook);
     }
 
-    public Book giveEmployeeBook (String idBook){
+    public Book giveEmployeeBook (int idBook){
         return database.giveEmployeeBook(idBook);
     }
 
@@ -57,15 +46,19 @@ public class BookDaoImpl implements BookDao {
         database.replaceInfoBook(newInfoBook);
     }
 
-    public Employee getHolderBook (String idBook){
+    public Employee getHolderBook (int idBook){
         return database.getHolderBook(idBook);
     }
 
-    public void deleteBook(String idBook, String randomUUID){
-        database.deleteBook(idBook, randomUUID);
+    public void deleteBook(int idBook) throws ServerException {
+        database.deleteBook(idBook);
     }
 
     public Employee getEmployeeByToken(String token){
         return database.getEmployeeByToken(token);
+    }
+
+    public int getCountAddBook(){
+        return database.getCountAddBook();
     }
 }

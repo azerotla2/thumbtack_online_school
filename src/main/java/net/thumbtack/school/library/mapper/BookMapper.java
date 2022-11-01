@@ -1,23 +1,21 @@
 package net.thumbtack.school.library.mapper;
 
 import net.thumbtack.school.library.dto.request.*;
+import net.thumbtack.school.library.dto.response.BookDtoResponse;
 import net.thumbtack.school.library.model.Book;
-import net.thumbtack.school.library.model.BookForUser;
 import net.thumbtack.school.library.model.Employee;
-import net.thumbtack.school.library.model.IdBookAndPeriodRequest;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 
 public class BookMapper {
 
     private final boolean BOOK_RESERVED = true;
     private final boolean BOOK_FREE = false;
-    private String returnDate = null;
-    private Employee reader = null;
+    private final Date returnDate = null;
+    private final Employee reader = null;
 
-    public Book addBook(Employee holder, AddBookDtoRequest addBookDtoRequest, String idBook, HashSet<String> authors, HashSet<String> sections){
+    public Book addBook(Employee holder, AddBookDtoRequest addBookDtoRequest, int idBook, HashSet<String> authors, HashSet<String> sections){
        return new Book(
            idBook,
            addBookDtoRequest.getTitle(),
@@ -29,12 +27,21 @@ public class BookMapper {
            reader);
     }
 
-    public BookForUser bookForUser (Book book){
-        return new BookForUser(
-            book.getIdBook(),
-            book.getTitle(),
-            book.getAuthors(),
-            book.getSection());
+    public BookDtoResponse bookDtoResponse(Book book){
+        return new BookDtoResponse(
+                book.getIdBook(),
+                book.getTitle(),
+                book.getAuthors(),
+                book.getSections());
+    }
+
+    public List<BookDtoResponse> listBookDtoResponse(Collection<Book> books){
+        List<BookDtoResponse> listBooksResponse = new ArrayList<>();
+        for(Book book : books){
+            listBooksResponse.add(bookDtoResponse(book));
+        }
+        return listBooksResponse;
+
     }
 
     public Iterator<String> iteratorGetAuthor(HashSet<String> request){
@@ -45,20 +52,13 @@ public class BookMapper {
         return request.iterator();
     }
 
-    public String getTitle (GetBookByTitleDtoRequest request){
-        return request.getTitle();
-    }
 
-    public IdBookAndPeriodRequest requestBooking (ReservedBookByIdDtoRequest request){
-        return new IdBookAndPeriodRequest(request.getIdBook(), request.getBookingPeriod());
-    }
-
-    public Book replaceServiceInfo (Book book, String returnDate, Employee reader, Boolean reserved){
+    public Book replaceServiceInfo (Book book, Date returnDate, Employee reader, Boolean reserved){
         return new Book(
             book.getIdBook(),
             book.getTitle(),
             book.getAuthors(),
-            book.getSection(),
+            book.getSections(),
             returnDate,
             reserved,
             book.getHolder(),
