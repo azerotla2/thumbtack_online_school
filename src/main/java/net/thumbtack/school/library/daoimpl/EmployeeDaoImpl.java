@@ -37,6 +37,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return database.removeEmployeeByToken(token);
     }
 
+    public void clearDatabaseEmployee(){
+        database.clearDatabaseEmployee();
+    }
+
 
 
 }

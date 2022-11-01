@@ -3,7 +3,6 @@ package net.thumbtack.school.library.server;
 import net.thumbtack.school.library.service.BookService;
 import net.thumbtack.school.library.service.EmployeeService;
 import net.thumbtack.school.library.service.ServerResponse;
-import net.thumbtack.school.library.service.error.ServerException;
 
 public class Server {
 
@@ -14,7 +13,7 @@ public class Server {
         return serviceEmployee.register(request);
     }
 
-    public ServerResponse loginEmployee(String request) throws ServerException {
+    public ServerResponse loginEmployee(String request) {
          return serviceEmployee.login(request);
     }
 
@@ -54,6 +53,13 @@ public class Server {
         return bookService.deleteBook(token, request);
     }
 
+    //для тестов
+    public void clearDatabaseEmployee(){
+        serviceEmployee.clearDatabaseEmployee();
+    }
 
+    public void clearLibrary(){
+        bookService.clearLibrary();
+    }
 
 }

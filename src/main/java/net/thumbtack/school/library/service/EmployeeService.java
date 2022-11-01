@@ -37,7 +37,7 @@ public class EmployeeService {
         }
     }
 
-    public ServerResponse login(String requestJsonString) throws ServerException {
+    public ServerResponse login(String requestJsonString) {
         try {
             LoginEmployeeDtoRequest loginDto = getClass.getClassFromJson(requestJsonString, LoginEmployeeDtoRequest.class);
             EmployeeValidator.employeeLoginValidate(loginDto);
@@ -75,6 +75,11 @@ public class EmployeeService {
             return new ServerResponse(CODE_FAILURE, ex.getLocalizedMessage());
         }
     }
+
+    public void clearDatabaseEmployee(){
+        dao.clearDatabaseEmployee();
+    }
+
 
 
 

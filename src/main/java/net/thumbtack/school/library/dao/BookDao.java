@@ -20,4 +20,5 @@ public interface BookDao {
     void deleteBook(int idBook) throws ServerException;
     Employee getEmployeeByToken(String token);
     int getCountAddBook();
+    void clearLibrary();
 }
