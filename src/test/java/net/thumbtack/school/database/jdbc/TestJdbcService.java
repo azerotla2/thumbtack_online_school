@@ -82,6 +82,7 @@ public class TestJdbcService {
         assertNull(traineeFromDBByColNames);
     }
 
+
     @Test
     public void testInsertTrainees() throws SQLException {
         Trainee traineeIvanov = new Trainee("Иван", "Иванов", 5);
