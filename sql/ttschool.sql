@@ -13,14 +13,14 @@ KEY /*INDEX*/ lastname (lastname),
 KEY /*INDEX*/ rating (rating)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
  
-CREATE TABLE subjectStudent (
+CREATE TABLE `subject` (
 id INT(11) NOT NULL AUTO_INCREMENT,
-nameSubject VARCHAR(50) NOT NULL,
+name VARCHAR(50) NOT NULL,
 primary key (id),
-KEY /*INDEX*/ nameSubject (nameSubject)
+KEY /*INDEX*/ name (name)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
-CREATE TABLE schools (
+CREATE TABLE school (
 id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 year INT(4) NOT NULL,
@@ -30,7 +30,7 @@ KEY /*INDEX*/ year (year)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 -- добавить новую таблицу и зависимсоти для Листа
-CREATE TABLE groupStudent (
+CREATE TABLE `group` (
 id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL, 
 room VARCHAR(50) NOT NULL, 
@@ -38,8 +38,18 @@ schoolid INT(11) NOT NULL,
 primary key (id),
 key name (name),
 KEY /*INDEX*/ room (room),
-FOREIGN KEY (schoolid) REFERENCES schools (id) ON DELETE CASCADE
+FOREIGN KEY (schoolid) REFERENCES school (id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+create table group_subject(
+id INT(11) NOT NULL AUTO_INCREMENT,
+groupid INT(11) NOT NULL,
+subjectid INT(11) NOT NULL,
+primary key (id),
+FOREIGN KEY (groupid) REFERENCES `group` (id) ON DELETE CASCADE,
+FOREIGN KEY (subjectid) REFERENCES `subject` (id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+
 
 
 
