@@ -12,12 +12,11 @@ import java.util.List;
 public class JdbcService {
 
     public static void insertTrainee(Trainee trainee) throws SQLException {
-        String insertQuery = "INSERT INTO trainee VALUES (?,?,?,?)";
+        String insertQuery = "INSERT INTO trainee (firstname, lastname, rating) VALUES (?,?,?)";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, trainee.getId());
-            stmt.setString(2, trainee.getFirstName());
-            stmt.setString(3, trainee.getLastName());
-            stmt.setInt(4, trainee.getRating());
+            stmt.setString(1, trainee.getFirstName());
+            stmt.setString(2, trainee.getLastName());
+            stmt.setInt(3, trainee.getRating());
             stmt.executeUpdate();
             try(ResultSet generatedKeys = stmt.getGeneratedKeys()){
                 if(!generatedKeys.next()){
