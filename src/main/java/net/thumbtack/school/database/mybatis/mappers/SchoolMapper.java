@@ -1,6 +1,5 @@
 package net.thumbtack.school.database.mybatis.mappers;
 
-import net.thumbtack.mybatis.model.Author;
 import net.thumbtack.school.database.model.School;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;

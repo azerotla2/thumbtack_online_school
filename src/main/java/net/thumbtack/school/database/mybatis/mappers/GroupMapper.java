@@ -1,8 +1,5 @@
 package net.thumbtack.school.database.mybatis.mappers;
 
-import net.thumbtack.mybatis.model.Address;
-import net.thumbtack.mybatis.model.Author;
-import net.thumbtack.mybatis.model.Book;
 import net.thumbtack.school.database.model.Group;
 import net.thumbtack.school.database.model.School;
 import net.thumbtack.school.database.model.Subject;
