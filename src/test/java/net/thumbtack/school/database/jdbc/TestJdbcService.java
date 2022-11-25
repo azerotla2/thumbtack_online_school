@@ -64,8 +64,8 @@ public class TestJdbcService {
         JdbcService.insertTrainee(trainee);
         Trainee traineeFromDBByColNames = JdbcService.getTraineeByIdUsingColNames(trainee.getId());
         assertEquals(trainee, traineeFromDBByColNames);
-        trainee.setFirstName("Петр");
-        trainee.setLastName("Петров");
+        trainee.setFirstname("Петр");
+        trainee.setLastname("Петров");
         JdbcService.updateTrainee(trainee);
         traineeFromDBByColNames = JdbcService.getTraineeByIdUsingColNames(trainee.getId());
         assertEquals(trainee, traineeFromDBByColNames);

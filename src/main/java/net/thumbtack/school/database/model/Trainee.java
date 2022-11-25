@@ -1,45 +1,29 @@
 package net.thumbtack.school.database.model;
 
-import net.thumbtack.school.database.jdbc.JdbcUtils;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Objects;
 
 public class Trainee {
     private int id = 0;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private int rating;
 
     public Trainee(){
 
     }
 
-    public Trainee(int id, String firstName, String lastName, int rating){
+    public Trainee(int id, String firstname, String lastname, int rating){
         setId(id);
-        setFirstName(firstName);
-        setLastName(lastName);
+        setFirstname(firstname);
+        setLastname(lastname);
         setRating(rating);
     }
 
-    public Trainee(String firstName, String lastName, int rating){
+    public Trainee(String firstname, String lastname, int rating){
         setId(this.id);
-        setFirstName(firstName);
-        setLastName(lastName);
+        setFirstname(firstname);
+        setLastname(lastname);
         setRating(rating);
-//        String insertQuery = "select count(*) from trainee";
-//        try(PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(insertQuery)){
-//            ResultSet rs = stmt.executeQuery();
-//            while (rs.next()){
-//                int count = rs.getInt(1);
-//                setId(count + 1);
-//            }
-//        } catch (SQLException ex){
-//            ex.printStackTrace();
-//        }
     }
 
     public int getId() {
@@ -50,20 +34,20 @@ public class Trainee {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getRating() {
@@ -77,15 +61,13 @@ public class Trainee {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Trainee)) return false;
         Trainee trainee = (Trainee) o;
-        return id == trainee.id && rating == trainee.rating && Objects.equals(firstName, trainee.firstName) && Objects.equals(lastName, trainee.lastName);
+        return getId() == trainee.getId() && getRating() == trainee.getRating() && Objects.equals(getFirstname(), trainee.getFirstname()) && Objects.equals(getLastname(), trainee.getLastname());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, rating);
+        return Objects.hash(getId(), getFirstname(), getLastname(), getRating());
     }
-
-
 }

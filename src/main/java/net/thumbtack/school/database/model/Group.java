@@ -96,13 +96,13 @@ public class Group {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Group)) return false;
         Group group = (Group) o;
-        return id == group.id && Objects.equals(name, group.name) && Objects.equals(room, group.room) && Objects.equals(trainees, group.trainees) && Objects.equals(subjects, group.subjects);
+        return getId() == group.getId() && Objects.equals(getName(), group.getName()) && Objects.equals(getRoom(), group.getRoom()) && Objects.equals(getTrainees(), group.getTrainees()) && Objects.equals(getSubjects(), group.getSubjects());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, room, trainees, subjects);
+        return Objects.hash(getId(), getName(), getRoom(), getTrainees(), getSubjects());
     }
 }

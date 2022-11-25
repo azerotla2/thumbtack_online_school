@@ -8,6 +8,7 @@ id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 year INT(4) NOT NULL,
 primary key(id),
+CONSTRAINT uc_school UNIQUE (name, year),
 KEY /*INDEX*/ name (name),
 KEY /*INDEX*/ year (year)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;

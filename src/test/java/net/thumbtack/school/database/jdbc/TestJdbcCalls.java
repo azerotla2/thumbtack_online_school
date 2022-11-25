@@ -36,9 +36,9 @@ public class TestJdbcCalls {
 
     @Before()
     public void clearDatabase() throws SQLException {
-      //  JdbcService.deleteSchools();
+        JdbcService.deleteSchools();
         JdbcService.deleteTrainees();
-     //   JdbcService.deleteSubjects();
+        JdbcService.deleteSubjects();
     }
 
     @Test

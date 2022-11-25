@@ -14,8 +14,8 @@ public class JdbcService {
     public static void insertTrainee(Trainee trainee) throws SQLException {
         String insertQuery = "INSERT INTO trainee (firstname, lastname, rating) VALUES (?,?,?)";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, trainee.getFirstName());
-            stmt.setString(2, trainee.getLastName());
+            stmt.setString(1, trainee.getFirstname());
+            stmt.setString(2, trainee.getLastname());
             stmt.setInt(3, trainee.getRating());
             stmt.executeUpdate();
             try(ResultSet generatedKeys = stmt.getGeneratedKeys()){
@@ -41,8 +41,8 @@ public class JdbcService {
         public  static void updateTrainee(Trainee trainee) throws SQLException {
             String updateQuery = "UPDATE trainee SET firstname = (?), lastname = (?) WHERE id = (?)";
             try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setString(1, trainee.getFirstName());
-                stmt.setString(2, trainee.getLastName());
+                stmt.setString(1, trainee.getFirstname());
+                stmt.setString(2, trainee.getLastname());
                 stmt.setInt(3, trainee.getId());
                 stmt.executeUpdate();
             }
@@ -56,8 +56,8 @@ public class JdbcService {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 trainee.setId(rs.getInt("id"));
-                trainee.setFirstName(rs.getString("firstname"));
-                trainee.setLastName(rs.getString("lastname"));
+                trainee.setFirstname(rs.getString("firstname"));
+                trainee.setLastname(rs.getString("lastname"));
                 trainee.setRating(rs.getInt("rating"));
             } else
                 trainee = null;
@@ -73,8 +73,8 @@ public class JdbcService {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 trainee.setId(rs.getInt(1));
-                trainee.setFirstName(rs.getString(2));
-                trainee.setLastName(rs.getString(3));
+                trainee.setFirstname(rs.getString(2));
+                trainee.setLastname(rs.getString(3));
                 trainee.setRating(rs.getInt(4));
             } else
                 trainee = null;
@@ -92,8 +92,8 @@ public class JdbcService {
                 do{
                     Trainee trainee = new Trainee();
                     trainee.setId(rs.getInt("id"));
-                    trainee.setFirstName(rs.getString("firstname"));
-                    trainee.setLastName(rs.getString("lastname"));
+                    trainee.setFirstname(rs.getString("firstname"));
+                    trainee.setLastname(rs.getString("lastname"));
                     trainee.setRating(rs.getInt("rating"));
                     trainees.add(trainee);
                 } while (rs.next());
@@ -112,8 +112,8 @@ public class JdbcService {
                 do{
                     Trainee trainee = new Trainee();
                     trainee.setId(rs.getInt(1));
-                    trainee.setFirstName(rs.getString(2));
-                    trainee.setLastName(rs.getString(3));
+                    trainee.setFirstname(rs.getString(2));
+                    trainee.setLastname(rs.getString(3));
                     trainee.setRating(rs.getInt(4));
                     trainees.add(trainee);
                 } while(rs.next());
