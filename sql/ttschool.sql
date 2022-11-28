@@ -34,14 +34,14 @@ primary key (id),
 KEY /*INDEX*/ firstname (firstname),
 KEY /*INDEX*/ lastname (lastname),
 KEY /*INDEX*/ rating (rating),
-FOREIGN KEY (groupid) REFERENCES `group` (id) ON DELETE CASCADE
+FOREIGN KEY (groupid) REFERENCES `group` (id) ON DELETE SET NULL
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
  
 CREATE TABLE `subject` (
 id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 primary key (id),
-KEY /*INDEX*/ name (name)
+UNIQUE KEY /*INDEX*/ name (name) 
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 create table group_subject(
