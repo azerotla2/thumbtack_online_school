@@ -111,10 +111,18 @@ public class Main {
         personList.add(person5);
         personList.add(person6);
 
-        Stream<Person> personAgeFilter = personList.stream().filter(p -> p.getAge() > 30);
-        List<Person> resultList = personAgeFilter.filter(distinctByKey(Person::getFirstname)).sorted(Comparator.comparingInt(p -> p.getFirstname().length())).collect(Collectors.toList());
-        Map<String, List<Person>> resultMap = personList.stream().filter(p -> p.getAge() > 30).collect(Collectors.groupingBy(Person::getFirstname));
-        List<Person> resultList2 = resultMap.values().stream().sorted(Comparator.comparingInt(List::size)).flatMap(List::stream).collect(Collectors.toList());
+        List<String> resultList = personList.stream().filter(p -> p.getAge() > 30).
+                map(Person::getFirstname).distinct().
+                sorted(Comparator.comparingInt(String::length)).
+                collect(Collectors.toList());
+
+
+        List<String> resultList2 = personList.stream().filter(p -> p.getAge() > 30).
+                collect(Collectors.groupingBy(Person::getFirstname)).
+                values().stream().sorted(Comparator.comparingInt(List::size)).
+                flatMap(List::stream).map(Person::getFirstname).
+                distinct().collect(Collectors.toList());
+
         int sum = personList.stream().mapToInt(p -> personList.indexOf(p) + 1).reduce(0, Integer::sum);
         int product = personList.stream().mapToInt(p -> personList.indexOf(p) + 1).reduce(1, (n1, n2) -> n1 * n2 );
     }
