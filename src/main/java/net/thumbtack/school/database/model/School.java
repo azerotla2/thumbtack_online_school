@@ -79,6 +79,16 @@ public class School {
     }
 
     @Override
+    public String toString() {
+        return "School{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                ", groups=" + groups +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof School)) return false;

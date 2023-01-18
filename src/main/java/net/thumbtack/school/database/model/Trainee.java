@@ -59,6 +59,16 @@ public class Trainee {
     }
 
     @Override
+    public String toString() {
+        return "Trainee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Trainee)) return false;

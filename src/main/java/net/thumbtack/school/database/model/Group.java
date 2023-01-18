@@ -94,6 +94,17 @@ public class Group {
     }
 
     @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", room='" + room + '\'' +
+                ", trainees=" + trainees +
+                ", subjects=" + subjects +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Group)) return false;
