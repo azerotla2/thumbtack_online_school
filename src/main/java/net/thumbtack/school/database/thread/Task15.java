@@ -5,7 +5,6 @@ import java.util.concurrent.BlockingQueue;
 
 public class Task15 {
     public static void main(String[] args) {
-
         int queueSize = 5;
         BlockingQueue<String> queue = new ArrayBlockingQueue<>(queueSize);
         Thread producer1 = new Thread(new Producer(queue, new Data(8), "First producer"));
@@ -20,9 +19,9 @@ public class Task15 {
         consumer2.start();
         try {
             producer1.join();
-            consumer1.join();
+            queue.put("end");
             producer2.join();
-            consumer2.join();
+            queue2.put("end");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -31,9 +30,9 @@ public class Task15 {
 
 class Producer implements Runnable {
 
-    private BlockingQueue<String> queue;
-    private String nameProducer;
-    private Data data;
+    private final BlockingQueue<String> queue;
+    private final String nameProducer;
+    private final Data data;
 
     public Producer(BlockingQueue<String> queue, Data data, String nameProducer) {
         this.queue = queue;
@@ -44,23 +43,20 @@ class Producer implements Runnable {
     public void run() {
         System.out.println(nameProducer + " Started");
         for (int i = 0; i < data.get().length; i++) {
-            queue.add("Data - " + i);
-            System.out.println(nameProducer + " added: Data - " + i);
             try {
-                Thread.sleep(200);
+                queue.put("Data - " + i);
+                System.out.println(nameProducer + " added: Data - " + i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        queue.add("end");
-        System.out.println(nameProducer + " finished");
     }
 }
 
 class Consumer implements Runnable {
 
-    private BlockingQueue<String> queue;
-    private String nameConsumer;
+    private final BlockingQueue<String> queue;
+    private final String nameConsumer;
 
     public Consumer(BlockingQueue<String> queue, String nameConsumer) {
         this.queue = queue;
@@ -86,7 +82,7 @@ class Consumer implements Runnable {
 }
 
 class Data{
-    private int[] setQueue;
+    private final int[] setQueue;
 
     public Data(int count){
         setQueue = new int[count];

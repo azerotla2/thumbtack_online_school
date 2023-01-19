@@ -23,7 +23,7 @@ public class Task3 {
 }
 
 class MyThread extends Thread{
-    private String name;
+    private final String name;
 
     public MyThread(String threadName) {
         name = threadName;

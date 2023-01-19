@@ -1,9 +1,9 @@
 package net.thumbtack.school.database.thread;
 
 public class Task2 {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
-        Runnable runnable =new RunnableImpl();
+        Runnable runnable = new RunnableImpl();
         Thread thread = new Thread(runnable);
         thread.start();
 

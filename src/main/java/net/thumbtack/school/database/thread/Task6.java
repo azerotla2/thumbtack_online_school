@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Task6 {
     public static void main(String[] args) {
-        List<Integer> list = Collections.synchronizedList(new ArrayList());
+        List<Integer> list = Collections.synchronizedList(new ArrayList<>());
 
         ChangeList6 changeList = new ChangeList6();
 
@@ -27,13 +27,13 @@ public class Task6 {
 }
 
 class ChangeList6 {
-    public void add(List list){
+    public void add(List<Integer> list){
         int a = (int) (Math.random() * (Integer.MAX_VALUE));
         list.add(a);
         System.out.println("Add: " + a);
     }
 
-    public void delete(List list){
+    public void delete(List<Integer> list){
         int index = (int) (Math.random() * 10000);
         if(list.size() > index){
             list.remove(index);
@@ -44,8 +44,8 @@ class ChangeList6 {
 }
 
 class Caller6 extends Thread {
-    private List<Integer> listInt;
-    private ChangeList6 changeList;
+    private final List<Integer> listInt;
+    private final ChangeList6 changeList;
 
     public Caller6(ChangeList6 change, List<Integer> arrayList) {
         changeList = change;

@@ -42,7 +42,7 @@ class Formatter{
 
 class TestDateThread extends Thread{
 
-    private Formatter formatter;
+    private final Formatter formatter;
 
     public TestDateThread(Formatter formatter) {
         this.formatter = formatter;
@@ -59,7 +59,7 @@ class TestDateThread extends Thread{
 
 class ThreadLocalHolder {
 
-    private static ThreadLocal<Formatter> dateThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<Formatter> dateThreadLocal = new ThreadLocal<>();
 
     public static void setDate(Formatter formatter){
         dateThreadLocal.set(formatter);

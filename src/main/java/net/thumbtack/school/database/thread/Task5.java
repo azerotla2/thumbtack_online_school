@@ -6,7 +6,6 @@ import java.util.concurrent.Semaphore;
 
 public class Task5 {
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
 
         ChangeListSync listSync = new ChangeListSync();
         new AddThread(listSync).start();
@@ -52,7 +51,7 @@ class ChangeListSync{
 }
 
 class DeleteThread extends Thread{
-    private ChangeListSync listSync;
+    private final ChangeListSync listSync;
 
     public DeleteThread(ChangeListSync changeListSync){
         listSync = changeListSync;
@@ -65,7 +64,7 @@ class DeleteThread extends Thread{
 }
 
 class AddThread extends Thread{
-    private ChangeListSync listSync;
+    private final ChangeListSync listSync;
 
     public AddThread(ChangeListSync changeListSync){
         listSync = changeListSync;

@@ -11,7 +11,7 @@ public class Task7 {
 }
 
 class PingThread extends Thread{
-    private CallerPingPong caller;
+    private final CallerPingPong caller;
 
     public PingThread(CallerPingPong call){
         caller = call;
@@ -24,7 +24,7 @@ class PingThread extends Thread{
 }
 
 class PongThread extends Thread{
-    private CallerPingPong caller;
+    private final CallerPingPong caller;
 
     public PongThread(CallerPingPong call){
         caller = call;

@@ -75,10 +75,10 @@ public class Task14 {
 }
 
 class Message{
-    private String emailAddress;
-    private String sender;
-    private String subject;
-    private String body;
+    private final String emailAddress;
+    private final String sender;
+    private final String subject;
+    private final String body;
 
     public Message(String emailAddress, String sender, String subject, String body){
         this.emailAddress = emailAddress;
@@ -132,8 +132,8 @@ class Transport{
 }
 
 class TransportThread extends Thread{
-    private Transport transport;
-    private Message message;
+    private final Transport transport;
+    private final Message message;
 
     public TransportThread(Transport transport, Message message){
         this.transport = transport;

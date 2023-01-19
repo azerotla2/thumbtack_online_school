@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Task8 {
     static private int i = 0;
-    static private ReadWriteLock lock = new ReentrantReadWriteLock();
+    static private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public static void main(String[] args) {
         Runnable writeTask = () -> {

@@ -16,14 +16,11 @@ public class Task12 {
             new GetCurrentMap(map, i).start();
         }
     }
-
-
 }
 
 class ConcurrentHashMapCustom{
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private final Map<Integer, String> map = new HashMap<>();
-
 
     public void put(Integer key, String value){
         lock.writeLock().lock();

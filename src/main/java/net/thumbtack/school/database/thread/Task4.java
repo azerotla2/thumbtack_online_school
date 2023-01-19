@@ -27,13 +27,13 @@ public class Task4 {
 }
 
 class ChangeList {
-    public void add(List list){
+    public void add(List<Integer> list){
         int a = (int) (Math.random() * (Integer.MAX_VALUE));
         list.add(a);
         System.out.println("Add: " + a);
     }
 
-    public void delete(List list){
+    public void delete(List<Integer> list){
         int index = (int) (Math.random() * 10000);
         if(list.size() > index){
             list.remove(index);
@@ -44,8 +44,8 @@ class ChangeList {
 }
 
 class Caller extends Thread {
-    private List<Integer> listInt;
-    private ChangeList changeList;
+    private final List<Integer> listInt;
+    private final ChangeList changeList;
 
     public Caller(ChangeList change, List<Integer> arrayList) {
         changeList = change;

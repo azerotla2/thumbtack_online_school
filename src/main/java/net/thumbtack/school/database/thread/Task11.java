@@ -14,9 +14,9 @@ public class Task11 {
 }
 
 class PingPong{
-    private Lock lock = new ReentrantLock();
-    private Condition pingCondition = lock.newCondition();
-    private Condition pongCondition = lock.newCondition();
+    private final Lock lock = new ReentrantLock();
+    private final Condition pingCondition = lock.newCondition();
+    private final Condition pongCondition = lock.newCondition();
     boolean flag = true;
 
     public void ping(){
@@ -54,7 +54,7 @@ class PingPong{
 }
 
 class Ping extends Thread{
-    private PingPong print;
+    private final PingPong print;
 
     public Ping(PingPong pingPong){
         print = pingPong;
@@ -68,7 +68,7 @@ class Ping extends Thread{
 }
 
 class Pong extends Thread{
-    private PingPong print;
+    private final PingPong print;
 
     public Pong(PingPong pingPong){
         print = pingPong;
