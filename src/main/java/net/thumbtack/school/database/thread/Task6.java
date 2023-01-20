@@ -7,6 +7,8 @@ import java.util.List;
 public class Task6 {
     public static void main(String[] args) {
         List<Integer> list = Collections.synchronizedList(new ArrayList<>());
+        //при использовании Collections.synchronizedList потоки работают поочереди,
+        //они не захватывают List на несколько операций
 
         ChangeList6 changeList = new ChangeList6();
 
@@ -34,6 +36,7 @@ class ChangeList6 {
     }
 
     public void delete(List<Integer> list){
+        System.out.println("Attempt to delete");
         int index = (int) (Math.random() * 10000);
         if(list.size() > index){
             list.remove(index);

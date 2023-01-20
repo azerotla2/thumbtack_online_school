@@ -10,7 +10,7 @@ public class Task16 {
         int queueSize = 5;
         int N_CONSUMERS = 3;
 
-        BlockingQueue<String> queue = new ArrayBlockingQueue<>(queueSize);
+        BlockingQueue<Task> queue = new ArrayBlockingQueue<>(queueSize);
 
         Thread producer1 = new Thread(new Producer16(queue, 10, "1 producer"));
         Thread producer2 = new Thread(new Producer16(queue, 10, "2 producer"));
@@ -25,7 +25,7 @@ public class Task16 {
             producer1.join();
             producer2.join();
             for(int poison = 0; poison < N_CONSUMERS; poison++ ){
-                queue.put("end");
+                queue.put(new Task(true));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -35,14 +35,13 @@ public class Task16 {
 
 class Producer16 implements Runnable {
 
-    private final BlockingQueue<String> queue;
+    private final BlockingQueue<Task> queue;
     private final String nameProducer;
 
     private final int taskCount;
 
-    public Producer16(BlockingQueue<String> queue,  int taskCount, String nameProducer) {
+    public Producer16(BlockingQueue<Task> queue,  int taskCount, String nameProducer) {
         this.queue = queue;
-
         this.taskCount = taskCount;
         this.nameProducer = nameProducer;
     }
@@ -51,7 +50,7 @@ class Producer16 implements Runnable {
         System.out.println(nameProducer + " Started");
         for (int i = 0; i < taskCount; i++) {
             try {
-                queue.put("Data - " + i);
+                queue.put(new Task(false));
                 System.out.println(nameProducer + " added: Data - " + i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -62,11 +61,11 @@ class Producer16 implements Runnable {
 
 class Consumer16 implements Runnable {
 
-    private final BlockingQueue<String> queue;
+    private final BlockingQueue<Task> queue;
     private final String nameConsumer;
 
 
-    public Consumer16(BlockingQueue<String> queue, String nameConsumer) {
+    public Consumer16(BlockingQueue<Task> queue, String nameConsumer) {
         this.queue = queue;
         this.nameConsumer = nameConsumer;
 
@@ -76,12 +75,12 @@ class Consumer16 implements Runnable {
         System.out.println(nameConsumer + " Started");
         while (true) {
             try {
-                String str = queue.take();
-                if (str.equalsIgnoreCase("end")) {
+                Task task = queue.take();
+                if (task.getPoison()) {
                     System.out.println(nameConsumer + " finished");
                     break;
                 }
-                System.out.println(nameConsumer + " retrieved: " + str);
+                System.out.println(nameConsumer + " retrieve");
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -91,7 +90,16 @@ class Consumer16 implements Runnable {
 }
 
 class Task implements Executable{
+    private boolean poison;
+
+    public Task(Boolean a){
+        poison = a;
+    }
+
     public void execute() throws Throwable {
 
+    }
+    public Boolean getPoison(){
+        return poison;
     }
 }

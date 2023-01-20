@@ -2,41 +2,34 @@ package net.thumbtack.school.database.thread;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Task14 {
     public static void main(String[] args) {
         File fileWithEmail = new File("C://Thumbtack/thumbtack_online_school_2020_2_mikhail_abramchuk/src/main/resources","email.txt");
         createEmail(fileWithEmail);
         List<String> emailList = emailFromFile(fileWithEmail);
-        AtomicInteger countEmail = new AtomicInteger();
-        countEmail.set(0);
         Transport transport = new Transport();
         transport.clearSMTP();
+        ExecutorService es = Executors.newFixedThreadPool(2);
 
-        while(emailList.size() > countEmail.get()) {
-            try{
-                new TransportThread(transport, new Message(emailList.get(countEmail.getAndIncrement()),
-                        "20misha98@gmail.11",
-                        "spamTest",
-                        "Hello, world. It's my first spam")).start();
 
-                new TransportThread(transport, new Message(emailList.get(countEmail.getAndIncrement()),
-                        "20misha98@gmail.22",
-                        "spamTest",
-                        "Hello, world. It's my first spam")).start();
+        Iterator<String> iterator = emailList.stream().iterator();
+                while(iterator.hasNext()) {
+                    es.execute(new TransportThread(transport, new Message(iterator.next(),
+                            "20misha98@gmail.11",
+                            "spamTest",
+                            "Hello, world. It's my first spam")));
 
-                new TransportThread(transport, new Message(emailList.get(countEmail.getAndIncrement()),
-                        "20misha98@gmail.33",
-                        "spamTest",
-                        "Hello, world. It's my first spam")).start();
-            } catch (IndexOutOfBoundsException ex){
-                System.out.println("Email adresses are over");
-            }
-
-        }
-        
+                    es.execute(new TransportThread(transport, new Message(iterator.next(),
+                            "20misha98@gmail.22",
+                            "spamTest",
+                            "Hello, world. It's my first spam")));
+                }
+        es.shutdown();
     }
 
     public static void createEmail(File file){

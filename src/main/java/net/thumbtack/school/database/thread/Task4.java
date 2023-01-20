@@ -8,55 +8,54 @@ public class Task4 {
     public static void main(String[] args) {
         List<Integer> list = new ArrayList<>();
 
-        ChangeList changeList = new ChangeList();
+        AddFromList addFromList = new AddFromList(list);
+        DeleteFromList delete = new DeleteFromList(list);
+            synchronized (list) { // synchronized block
+                addFromList.start();
+                delete.start();
 
-        Caller callerOne = new Caller(changeList, list);
-        Caller callerTwo = new Caller(changeList, list);
-
-        callerOne.start();
-        callerTwo.start();
-
-        try {
-            callerOne.join();
-            callerTwo.join();
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted");
+            try {
+                addFromList.join();
+                delete.join();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted");
+            }
+            System.out.println(list.size());
         }
-        System.out.println(list.size());
     }
 }
 
-class ChangeList {
-    public void add(List<Integer> list){
-        int a = (int) (Math.random() * (Integer.MAX_VALUE));
-        list.add(a);
-        System.out.println("Add: " + a);
+class AddFromList extends Thread{
+    private List<Integer> list;
+
+    public AddFromList(List<Integer> list){
+        this.list = list;
     }
 
-    public void delete(List<Integer> list){
-        int index = (int) (Math.random() * 10000);
-        if(list.size() > index){
-            list.remove(index);
-            System.out.println("Delete: " + index);
+    @Override
+    public void run() {
+        for (int i = 0; i < 10000; i++) {
+            int a = (int) (Math.random() * (Integer.MAX_VALUE));
+            list.add(a);
+            System.out.println("Add: " + a);
         }
-
     }
 }
 
-class Caller extends Thread {
-    private final List<Integer> listInt;
-    private final ChangeList changeList;
+class DeleteFromList extends Thread {
+    private List<Integer> list;
 
-    public Caller(ChangeList change, List<Integer> arrayList) {
-        changeList = change;
-        listInt = arrayList;
+    public DeleteFromList(List<Integer> list) {
+        this.list = list;
     }
 
     public void run() {
-        for(int i = 0 ; i < 10000; i++) {
-            synchronized (changeList) { // synchronized block
-                changeList.add(listInt);
-                changeList.delete(listInt);
+        for (int i = 0; i < 10000; i++) {
+            System.out.println("Attempt to remove");
+            int index = (int) (Math.random() * 10000);
+            if (list.size() > index) {
+                list.remove(index);
+                System.out.println("Delete: " + index);
             }
         }
     }

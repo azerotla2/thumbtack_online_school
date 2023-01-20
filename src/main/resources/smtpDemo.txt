@@ -1,29 +1,4 @@
-email: 5555.@mail.ru
-sender: 20misha98@gmail.22
-subject: spamTest
-body: Hello, world. It's my first spam
-
-email: 6666.@mail.ru
-sender: 20misha98@gmail.33
-subject: spamTest
-body: Hello, world. It's my first spam
-
-email: 8888.@mail.ru
-sender: 20misha98@gmail.22
-subject: spamTest
-body: Hello, world. It's my first spam
-
 email: 1111.@mail.ru
-sender: 20misha98@gmail.11
-subject: spamTest
-body: Hello, world. It's my first spam
-
-email: 4444.@mail.ru
-sender: 20misha98@gmail.11
-subject: spamTest
-body: Hello, world. It's my first spam
-
-email: 7777.@mail.ru
 sender: 20misha98@gmail.11
 subject: spamTest
 body: Hello, world. It's my first spam
@@ -33,8 +8,33 @@ sender: 20misha98@gmail.22
 subject: spamTest
 body: Hello, world. It's my first spam
 
+email: 4444.@mail.ru
+sender: 20misha98@gmail.22
+subject: spamTest
+body: Hello, world. It's my first spam
+
 email: 3333.@mail.ru
-sender: 20misha98@gmail.33
+sender: 20misha98@gmail.11
+subject: spamTest
+body: Hello, world. It's my first spam
+
+email: 5555.@mail.ru
+sender: 20misha98@gmail.11
+subject: spamTest
+body: Hello, world. It's my first spam
+
+email: 6666.@mail.ru
+sender: 20misha98@gmail.22
+subject: spamTest
+body: Hello, world. It's my first spam
+
+email: 7777.@mail.ru
+sender: 20misha98@gmail.11
+subject: spamTest
+body: Hello, world. It's my first spam
+
+email: 8888.@mail.ru
+sender: 20misha98@gmail.22
 subject: spamTest
 body: Hello, world. It's my first spam
 

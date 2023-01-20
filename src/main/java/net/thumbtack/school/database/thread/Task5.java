@@ -2,76 +2,65 @@ package net.thumbtack.school.database.thread;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 public class Task5 {
     public static void main(String[] args) {
 
-        ChangeListSync listSync = new ChangeListSync();
-        new AddThread(listSync).start();
-        new DeleteThread(listSync).start();
+        List<Integer> listInt = new ArrayList<>();
+        ThreadSafeList threadSafeList = new ThreadSafeList(listInt);
+
+        new ThreadChangeNumber(threadSafeList, Method.ADD).start();
+        new ThreadChangeNumber(threadSafeList, Method.DELETE).start();
     }
 }
 
-class ChangeListSync{
+class ThreadChangeNumber extends Thread{
+    private final ThreadSafeList safeList;
+    private final Method whatMethod;
 
-    List<Integer> listInt = new ArrayList<>();
+    public ThreadChangeNumber(ThreadSafeList safeList, Method whatMethod){
+        this.safeList = safeList;
+        this.whatMethod = whatMethod;
+    }
 
-    static Semaphore semAdd = new Semaphore(1);
-    static Semaphore semDelete = new Semaphore(0);
+    @Override
+    public void run() {
 
-    public void delete() {
-        try {
-            semDelete.acquire();
+        if(whatMethod == Method.ADD)
+            safeList.add();
+
+        if(whatMethod == Method.DELETE)
+            safeList.delete();
+    }
+}
+
+class ThreadSafeList{
+    private final List<Integer> list;
+
+    public ThreadSafeList(List<Integer> list){
+        this.list = list;
+    }
+
+    public synchronized void delete() {
+        for(int i = 0; i < 10000; i++){
+            System.out.println("Delete try");
             int index = (int) (Math.random() * 10000);
-            if (listInt.size() > index) {
-                listInt.remove(index);
+            if (list.size() > index) {
+                list.remove(index);
                 System.out.println("Delete: " + index);
             }
-        } catch (InterruptedException e) {
-            System.out.println("InterruptedException caught");
-        } finally {
-            semAdd.release();
         }
     }
-
-    public void add(){
-        try {
-            semAdd.acquire();
+    public synchronized void add() {
+        for(int i = 0; i < 10000; i++) {
             int a = (int) (Math.random() * (Integer.MAX_VALUE));
-            listInt.add(a);
+            list.add(a);
             System.out.println("Add: " + a);
-        } catch (InterruptedException e) {
-            System.out.println("InterruptedException caught");
-        }
-        finally {
-            semDelete.release();
         }
     }
 }
 
-class DeleteThread extends Thread{
-    private final ChangeListSync listSync;
-
-    public DeleteThread(ChangeListSync changeListSync){
-        listSync = changeListSync;
-    }
-
-    public void run(){
-        for(int i = 0; i < 10000; i++)
-            listSync.delete();
-    }
-}
-
-class AddThread extends Thread{
-    private final ChangeListSync listSync;
-
-    public AddThread(ChangeListSync changeListSync){
-        listSync = changeListSync;
-    }
-
-    public void run(){
-        for(int i = 0; i < 10000; i++)
-            listSync.add();
-    }
+enum Method{
+    ADD,
+    DELETE
 }

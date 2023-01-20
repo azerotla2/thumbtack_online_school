@@ -98,7 +98,7 @@ class Producer18 implements Runnable {
 
     public List<Executable> addStageTask(int stageCount){
         List<Executable> listStage = Collections.synchronizedList(new ArrayList<>());
-        Task stage = new Task();
+        Task stage = new Task(false);
         for(int i = 0; i < stageCount; i++){
             listStage.add(stage);
         }

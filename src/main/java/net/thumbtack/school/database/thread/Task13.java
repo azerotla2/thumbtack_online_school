@@ -34,9 +34,16 @@ public class Task13 {
 }
 
 class Formatter{
-    public String format(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return simpleDateFormat.format(date);
+
+    static ThreadLocal<SimpleDateFormat> format1 = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        }
+    };
+
+    public String formatDate(Date date){
+        return format1.get().format(date);
     }
 }
 
@@ -50,27 +57,7 @@ class TestDateThread extends Thread{
 
     @Override
     public void run() {
-        ThreadLocalHolder.setDate(formatter);
-        String currentThreadDate = ThreadLocalHolder.getDate();
-        System.out.println("ThreadLocal : " + currentThreadDate);
-        ThreadLocalHolder.delete();
+        String currentDateThread = formatter.formatDate(new Date());
+        System.out.println(currentDateThread);
     }
-}
-
-class ThreadLocalHolder {
-
-    private static final ThreadLocal<Formatter> dateThreadLocal = new ThreadLocal<>();
-
-    public static void setDate(Formatter formatter){
-        dateThreadLocal.set(formatter);
-    }
-
-    public static String getDate(){
-        return dateThreadLocal.get().format(new Date());
-    }
-
-    public static void delete() {
-        dateThreadLocal.remove();
-    }
-
 }
