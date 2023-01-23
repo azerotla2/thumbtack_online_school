@@ -13,7 +13,6 @@ public class Task17 {
         int N_PRODUCERS = 2;
         int stageCount = 7;
 
-
         BlockingQueue<Task_17> queue = new LinkedBlockingQueue<>();
         Task_17 poisonTask = new Task_17(new ArrayList<>(), "poison");
         Phaser countPhaserTask = new Phaser(1);
@@ -149,3 +148,4 @@ class Task_17 implements Executable {
         return name;
     }
 }
+
