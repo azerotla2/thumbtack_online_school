@@ -1,95 +1,80 @@
 package net.thumbtack.school.database.thread;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.LinkedTransferQueue;
-import java.util.concurrent.TransferQueue;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.*;
 
 public class Task18 {
     public static void main(String[] args) {
+        int N_PRODUCERS = 1;
         int N_CONSUMERS = 3;
         int stageCount = 5;
+        int scheduledTask = 10;
+        Phaser countPhaserTask = new Phaser(1);
+        CountDownLatch scheduledLatchTask = new CountDownLatch(scheduledTask);
 
 
-        TransferQueue<Task_17> queue = new LinkedTransferQueue<>();
+        BlockingQueue<Task_17> queue = new LinkedBlockingQueue<>();
         Task_17 poisonTask = new Task_17(new ArrayList<>(), "poison");
 
-
-        Thread producer1 = new Thread(new Producer18(queue, 10, "main producer", stageCount, new AtomicInteger(), new AtomicInteger()));
-        producer1.start();
-
-        Thread consumer1 = new Thread(new Consumer17(queue,  "1 consumers", poisonTask));
-        Thread consumer2 = new Thread(new Consumer17(queue,  "2 consumers", poisonTask));
-        Thread consumer3 = new Thread(new Consumer17(queue,  "3 consumers", poisonTask));
-        consumer1.start();
-        consumer2.start();
-        consumer3.start();
+        ExecutorService es = Executors.newFixedThreadPool(N_PRODUCERS + N_CONSUMERS);
+        for(int j = 0; j < N_PRODUCERS; j++){
+            es.execute(new Thread(new Producer18(queue, scheduledLatchTask, "main producer", stageCount, countPhaserTask)));
+        }
+        for(int i = 0; i < N_CONSUMERS; i++){
+            es.execute(new Thread(new Consumer17(queue,  i + " consumers", poisonTask, countPhaserTask)));
+        }
 
         try {
-            producer1.join();
-            while(true) {
-                if(queue.getWaitingConsumerCount() == N_CONSUMERS){
-                    for(int i = 0; i < N_CONSUMERS; i++)
-                        queue.transfer(poisonTask);
-                    break;
-                }
-                Thread.sleep(20);
+            scheduledLatchTask.await();
+            countPhaserTask.arriveAndAwaitAdvance();
+            for(int i = 0; i < N_CONSUMERS; i++){
+                System.out.println("Put poison");
+                queue.put(poisonTask);
             }
-            consumer1.join();
-            consumer2.join();
-            consumer3.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        es.shutdown();
     }
 }
 
 class Producer18 implements Runnable {
 
-    private final TransferQueue<Task_17> queue;
+    private final BlockingQueue<Task_17> queue;
     private final String nameProducer;
-    private final int taskCount;
+    private final CountDownLatch scheduledLatchTasks;
     private final int stageCount;
-    private AtomicInteger completedTask;
-    private AtomicInteger countProducers;
+    private final Phaser phaserCountTask;
 
-
-    public Producer18(TransferQueue<Task_17> queue, int taskCount, String nameProducer, int stageCount, AtomicInteger completedTask, AtomicInteger countProducers) {
+    public Producer18(BlockingQueue<Task_17> queue, CountDownLatch scheduledLatchTasks, String nameProducer, int stageCount, Phaser phaserCountTask) {
         this.queue = queue;
-        this.taskCount = taskCount;
+        this.scheduledLatchTasks = scheduledLatchTasks;
         this.nameProducer = nameProducer;
         this.stageCount = stageCount;
-        this.completedTask = completedTask;
-        this.countProducers = countProducers;
+        this.phaserCountTask = phaserCountTask;
     }
 
     public void run() {
-
         System.out.println(nameProducer + " Started");
 
-        while(completedTask.get() < taskCount){
+        while(scheduledLatchTasks.getCount() != 0){
             try {
                 if(getRandomBoolean()) {
-                    completedTask.incrementAndGet();
+                    phaserCountTask.register();
+                    scheduledLatchTasks.countDown();
                     List<Executable> listStage = addStageTask(stageCount);
-                    Task_17 task = new Task_17(listStage, "Task" + completedTask.get());
-                    queue.transfer(task);
-                    System.out.println(nameProducer + " added: Task - " + completedTask.get());
+                    Task_17 task = new Task_17(listStage, "Task " + scheduledLatchTasks.getCount());
+                    queue.put(task);
+                    System.out.println(nameProducer + " added: Task - " + scheduledLatchTasks.getCount());
                 }else{
-                    new Thread(new Producer18
-                            (queue,
-                                    taskCount,
-                                    countProducers.incrementAndGet() + " producer",
-                                    stageCount,
-                                    completedTask,
-                                    countProducers)).start();
+                    System.out.println("add new Producer");
+                    new Thread(new Producer18(queue, scheduledLatchTasks, "secondary producer", stageCount, phaserCountTask)).start();
                 }
-                Thread.sleep(150);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
