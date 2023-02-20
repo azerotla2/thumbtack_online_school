@@ -1,6 +1,5 @@
 package net.thumbtack.school.servlet;
 
-import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
@@ -11,9 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ServletDemo {
-    private static Gson gson = new Gson();
-    private static int number = createNumber();
-    private static RequestHandler requestHandler = new RequestHandler();
+    private static final int number = createNumber();
+    private static final RequestHandler requestHandler = new RequestHandler();
 
     public static void main(String[] args) throws Exception {
         int port = 8080;
@@ -33,7 +31,7 @@ public class ServletDemo {
 
     public static class PersonServlet extends HttpServlet {
         @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
             String responseString = requestHandler.responseForClient(request, number);
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
