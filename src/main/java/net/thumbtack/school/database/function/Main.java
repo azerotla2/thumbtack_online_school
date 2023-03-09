@@ -7,7 +7,7 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
+/*
 public class Main {
 
     static String str = "Hello world !!!";
@@ -248,4 +248,4 @@ class Person {
         return age;
     }
 }
-
+*/
