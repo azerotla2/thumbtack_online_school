@@ -7,21 +7,21 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-/*
+
 public class Main {
 
     static String str = "Hello world !!!";
 
     public static void main(String[] args) {
-        first();
-        second();
+//        first();
+//        second();
         third();
-        fourth();
-        fifth();
-        sixth();
+//        fourth();
+//        fifth();
+//        sixth();
 
     }
-
+/*
     static void first() {
         System.out.println("\n\n\n________________________________________START_OF_FIRST_____________________________________________________\n");
 
@@ -54,7 +54,7 @@ public class Main {
 
         System.out.println("\n_______________________________________END_OF_SECOND______________________________________________________\n");
     }
-
+*/
     static void third() {
         System.out.println("\n\n\n________________________________________START_OF_THIRD_____________________________________________________\n");
 
@@ -92,7 +92,7 @@ public class Main {
         Person grandMother = new Person(Optional.ofNullable(null), Optional.of(grandGrandFather));
         Person motherOptional = new Person(Optional.of(grandMother), Optional.ofNullable(null));
 
-        getMothersMotherFatherOptional(Optional.of(motherOptional));
+        //getMothersMotherFatherOptional(Optional.of(motherOptional));
     }
 
     static void sixth(){
@@ -136,7 +136,7 @@ public class Main {
             return grandGrandPa;
         }
     }
-
+/*
     static Optional<Person> getMothersMotherFatherOptional(Optional<Person> mother){
         if(mother.isEmpty())
             return Optional.empty();
@@ -156,7 +156,7 @@ public class Main {
     IntStream transform(IntStream stream, IntUnaryOperator op){
         return stream.map(op);
     }
-
+*/
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
@@ -248,4 +248,4 @@ class Person {
         return age;
     }
 }
-*/
+
