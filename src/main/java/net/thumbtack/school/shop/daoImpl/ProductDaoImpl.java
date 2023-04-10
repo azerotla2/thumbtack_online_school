@@ -32,4 +32,14 @@ public class ProductDaoImpl implements GeneralDao<Product> {
         LOGGER.info("insert product ean: " + obj.getIdEAN());
         productMap.put(obj.getIdEAN(), obj);
     }
+
+    public void replace(Product obj){
+        LOGGER.info("replace review: " + obj.getIdEAN());
+        productMap.replace(obj.getIdEAN(), obj);
+    }
+
+    public Product remove(String ean){
+        LOGGER.info("delete product ean: ");
+        return productMap.remove(ean);
+    }
 }

@@ -17,14 +17,14 @@ public class ProductsAdder {
     }
 
      public void addAllProduct(){
-        createProduct("87689", 100, "liquid soap", "Russia", "Unilever", "Gagarina, 14");
-        createProduct("98738", 220, "chips", "Belorussian", "Lays", "Marksa, 5 ");
-        createProduct("98237", 87, "cookie", "Kazakhstan", "Rahat", "Lenina, 6");
-        createProduct("987972", 99, "rice", "China", "Uvelka", "Central, 88");
+        createProduct("123", 100, "liquid soap", "Russia", "Unilever", "Gagarina, 14");
+        createProduct("124", 220, "chips", "Belorussian", "Lays", "Marksa, 5 ");
+        createProduct("125", 87, "cookie", "Kazakhstan", "Rahat", "Lenina, 6");
+        createProduct("126", 99, "rice", "China", "Uvelka", "Central, 88");
         LOGGER.info("Add all product");
     }
 
-    private void createProduct(String idEAN, int price,
+    private void createProduct(String idEAN, double price,
                                String description, String manufactureCountry,
                                String company, String address){
         Product product = new Product(idEAN, price, description, manufactureCountry, company, address);

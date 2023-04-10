@@ -4,6 +4,7 @@ import net.thumbtack.school.shop.dao.GeneralDao;
 import net.thumbtack.school.shop.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class UserDaoImpl implements GeneralDao<User> {
     public void insert(User obj) {
         LOGGER.info("insert user by id " + obj.getId());
         userMap.put(obj.getId(), obj);
+    }
+
+    public User remove(String id){
+        LOGGER.info("remove user id: " + id);
+        return userMap.remove(id);
     }
 }

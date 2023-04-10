@@ -4,6 +4,7 @@ import net.thumbtack.school.shop.dao.GeneralDao;
 import net.thumbtack.school.shop.model.ProductReview;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,8 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class ProductReviewDaoImpl implements GeneralDao<ProductReview> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductReviewDaoImpl.class);
-    private final ConcurrentHashMap<String, ProductReview> productReviewMap = new ConcurrentHashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductReviewDaoImpl.class);    private final ConcurrentHashMap<String, ProductReview> productReviewMap = new ConcurrentHashMap<>();
 
     @Override
     public ProductReview findById(String id) {

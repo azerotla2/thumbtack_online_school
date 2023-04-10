@@ -26,7 +26,7 @@ public class UsersAdder {
     }
 
     public void addAllUser(){
-        for(int id = 0; id < 8; id++){
+        for(int id = 1; id < 8; id++){
             createUser(String.valueOf(id),
                 randomYearBirth(),
                 randomGender(),
@@ -38,6 +38,10 @@ public class UsersAdder {
             );
         }
         LOGGER.info("All user is added");
+    }
+
+    public int getSizeListUser(){
+        return userDao.findAll().size();
     }
 
     private int randomYearBirth(){

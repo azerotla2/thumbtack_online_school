@@ -2,13 +2,13 @@ package net.thumbtack.school.shop.model;
 
 public class Product {
     private String idEAN;
-    private int price;
+    private double price;
     private String description;
     private String manufactureCountry;
     private String company;
     private String address;
 
-    public Product(String idEAN, int price, String description, String manufactureCountry, String company, String address) {
+    public Product(String idEAN, double price, String description, String manufactureCountry, String company, String address) {
         this.idEAN = idEAN;
         this.price = price;
         this.description = description;
@@ -21,7 +21,7 @@ public class Product {
         return idEAN;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -39,5 +39,29 @@ public class Product {
 
     public String getAddress() {
         return address;
+    }
+
+    public void setIdEAN(String idEAN) {
+        this.idEAN = idEAN;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setManufactureCountry(String manufactureCountry) {
+        this.manufactureCountry = manufactureCountry;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

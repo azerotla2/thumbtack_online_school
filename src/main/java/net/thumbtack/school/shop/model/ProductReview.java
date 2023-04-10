@@ -4,8 +4,8 @@ public class ProductReview {
     private String id;
     private String ean;
     private int rating;
-    private Boolean recommend;
-    private Boolean chooseAgain;
+    private boolean recommend;
+    private boolean chooseAgain;
     private User userFromReview;
 
     public ProductReview(String id, String ean, int rating, boolean recommend, boolean chooseAgain, User userFromReview) {
@@ -29,11 +29,11 @@ public class ProductReview {
         return rating;
     }
 
-    public Boolean getRecommend() {
+    public boolean getRecommend() {
         return recommend;
     }
 
-    public Boolean getChooseAgain() {
+    public boolean getChooseAgain() {
         return chooseAgain;
     }
 

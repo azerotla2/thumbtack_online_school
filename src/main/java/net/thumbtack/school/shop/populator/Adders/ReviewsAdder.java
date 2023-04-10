@@ -39,11 +39,13 @@ public class ReviewsAdder {
         List<User> userList = userDao.findAll();
         for(int countProduct = 0; countProduct < listProduct.size(); countProduct++){
             for(int countReview = 0; countReview < 5; countReview++){
+                boolean willRecommend = randomBoolean();
+                boolean chooseAgain = randomBoolean();
                 createReview(String.valueOf(id++),
                     listProduct.get(countProduct).getIdEAN(),
                     randomRating(),
-                    randomBoolean(),
-                    randomBoolean(),
+                    willRecommend,
+                    chooseAgain,
                     randomUser(userList)
                 );
             }

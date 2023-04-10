@@ -1,49 +1,23 @@
 package net.thumbtack.school.shop.calculator.service;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import net.thumbtack.school.shop.daoImpl.ProductReviewDaoImpl;
 import net.thumbtack.school.shop.model.ProductReview;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AverageRating {
     private static final Logger LOGGER = LoggerFactory.getLogger(AverageRating.class);
 
-    private final ProductReviewDaoImpl productReviewDao;
-    Multimap<String, Integer> idRatingsMap = ArrayListMultimap.create();
-
-    public AverageRating(ProductReviewDaoImpl productReviewDao){
-        this.productReviewDao = productReviewDao;
-    }
-
-    public void calcAverageRating() {
-        fillMapIdRating();
-        Map<String, String> averageRatingById = new HashMap<>();
-        for (String idEAN : idRatingsMap.keySet())
-            averageRatingById.put(idEAN, calcAverageRatingById(idEAN));
-    }
-
-    private String calcAverageRatingById(String idEAN){
-        Collection<Integer> ratings = idRatingsMap.get(idEAN);
-        String formattedDouble = calcAverage(ratings);
-        LOGGER.info("For product: " + idEAN + " average rating: " + formattedDouble);
+    public String calcByEan(List<ProductReview> reviewsById){
+        List<Integer> ratings2 = reviewsById.stream().map(ProductReview::getRating).collect(Collectors.toList());
+        String formattedDouble = calcAverage(ratings2);
+        LOGGER.info("For product: " + reviewsById.get(0).getEan() + " average rating: " + formattedDouble);
         return formattedDouble;
-    }
-
-    private void fillMapIdRating(){
-        List<ProductReview> reviewList = productReviewDao.findAll();
-        for (ProductReview review : reviewList) {
-            idRatingsMap.put(review.getEan(), review.getRating());
-        }
     }
 
     private String calcAverage(Collection<Integer> ratings){
