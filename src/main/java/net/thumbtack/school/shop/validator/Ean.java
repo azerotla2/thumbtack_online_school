@@ -1,7 +1,5 @@
 package net.thumbtack.school.shop.validator;
 
-import com.akoval.spring.validator.CarModelValidator;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
