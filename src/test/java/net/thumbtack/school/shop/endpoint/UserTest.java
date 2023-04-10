@@ -1,13 +1,10 @@
 package net.thumbtack.school.shop.endpoint;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.thumbtack.school.shop.daoImpl.UserDaoImpl;
 import net.thumbtack.school.shop.dto.request.UserDto;
 import net.thumbtack.school.shop.mapper.UserMapper;
-import net.thumbtack.school.shop.model.User;
 import net.thumbtack.school.shop.service.Validation;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

@@ -2,7 +2,6 @@ package net.thumbtack.school.shop.populator.Adders;
 
 import net.thumbtack.school.shop.daoImpl.ProductDaoImpl;
 import net.thumbtack.school.shop.model.Product;
-import net.thumbtack.school.shop.populator.DataPopulator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
